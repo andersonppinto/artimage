@@ -1,0 +1,304 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="apple-touch-icon" href="/artimage.htmkilo.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>Artimage</title>
+<link type="text/css" rel="stylesheet" media="screen" href="/css/apple/theme.css">
+<link type="text/css" rel="stylesheet" media="screen" href="/css/apple/box.css">
+<link type="text/css" rel="stylesheet" media="screen" href="/css/apple/box.css">
+<link type="text/css" rel="stylesheet" media="only screen and (min-device-width: 1024px)" href="/css/offer.css" />
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/accounting.js"></script>
+<script type="text/javascript" src="/js/app_offer.js"></script>
+<script type="text/javascript" src="/js/offline.js"></script>
+<script type="text/javascript">
+	var type = "I";
+	var codigo = "";
+
+	$(document).ready(function() {
+		if(getUrlVars()["type"] != null) {
+			type   = getUrlVars()["type"];
+			codigo = getUrlVars()["codigo"];
+		}
+		if(type == "I") {
+			$("#divCadastro").hide();
+		 } else {
+			$("#divNew").hide();
+			$("#divList").hide();
+			$("#divSearch").hide();
+			$("#divCadastro").show();
+		 }
+
+		if(type == "U") {
+			$("#btnDelete").show();
+		}
+		FillForm();
+	});
+
+	function FillForm() {
+		console.log("Fill Form");
+		if(type == "U" || type == "D") {
+			console.log("update");
+			var sqlSQL = "select * from  representante where codigo = '" + codigo + "'";
+			db.transaction(function(tx) {
+				tx.executeSql(sqlSQL,[],function(tx, rs) {
+					var sHtml = "<ul class='edgetoedge'>";
+				  	for (var i=0; i < rs.rows.length; i++) {
+				   		var row = rs.rows.item(i);
+
+						$("#txtCodigo").val(row["codigo"]);
+						$("#txtNome").val(row["nome"]);
+						$("#txtCnpj").val(row["cnpj"]);
+						$("#txtRG").val(row["rg"]);
+						$("#txtContato").val(row["contato"]);
+						$("#txtEmail").val(row["email"]);
+						$("#txtTelefone" ).val(row["telefone"]);
+						$("#txtEndereco" ).val(row["endereco"]);
+						$("#txtBairro" ).val(row["bairro"]);
+						$("#txtCep" ).val(row["cep"]);
+						$("#txtCidade" ).val(row["cidade"]);
+						$("#txtUF" ).val(row["uf"]);
+					}
+					sHtml = sHtml + "</ul>";
+					$("#divList").html(sHtml);
+				},  errorQuery);
+			});
+		}
+	}
+
+	function nome_change(){
+		$("#divList").show();
+		var sqlSQL = "SELECT codigo, nome from representante where nome like '%" + $("#txtSearch").val() + "%' LIMIT 10";
+
+		db.transaction(function(tx) {
+			tx.executeSql(sqlSQL,[],function(tx, rs) {
+				var sHtml = "<ul class='edgetoedge'>";
+			  	for (var i=0; i < rs.rows.length; i++) {
+			   		var row = rs.rows.item(i);
+					sHtml = sHtml + "<li class='arrow'><a href='representante.html?type=U&codigo=" + row["codigo"] + "'>" + row["nome"] + "</a></li>";
+				}
+				sHtml = sHtml + "</ul>";
+				$("#divList").html(sHtml);
+			},  errorQuery);
+		});
+		/*
+		$.getJSON("http://artimage.herokuapp.com/server/getRepresentante.php?nome=" + $("#txtSearch").val(), function(json) {
+			var sName = "";
+			var sCodigo = "";
+			$.each(json, function(item,line) {
+				sName = "";
+				sCodigo = "";
+				$.each(line,function(key, value) {
+					switch(key){
+					case "nome":
+						sName = value;
+						break;
+					case "codigo":
+						sCodigo = value;
+						break;
+					}
+				});
+				sHtml = sHtml + "<li class='arrow'><a href='representante.php?type=U&codigo=" + sCodigo + "'>" + sName + "</a></li>";
+			});
+			sHtml = sHtml + "</ul>";
+			$("#divList").html(sHtml);
+		});
+		*/
+	}
+
+	function ClearFields() {
+		$("#txtCodigo").val("");
+		$("#txtNome").val("");
+		$("#txtCnpj").val("");
+		$("#txtRG").val("");
+		$("#txtContato").val("");
+		$("#txtEmail").val("");
+		$("#txtTelefone" ).val("");
+		$("#txtEndereco" ).val("");
+		$("#txtBairro" ).val("");
+		$("#txtCep" ).val("");
+		$("#txtCidade" ).val("");
+		$("#txtUF" ).val("");
+	}
+
+	function btnNew_Click() {
+		$("#divNew").hide();
+		$("#divList").hide();
+		$("#divSearch").hide();
+		$("#divCadastro").show();
+	}
+
+	function btnDelete_Click() {
+		if(confirm("Exclui Representante?")) {
+			var strSQL = "DELETE  from representante where nome = '" + $("#txtNome").val() + "' ";
+			db.transaction(function(tx) {
+				tx.executeSql(strSQL,[],function(tx, r) {
+						strSQL = "INSERT INTO DeleteLocal (TableName, Codigo) VALUES ('Representante','" + $("#txtNome").val() + "')";
+						db.transaction(function(tx) {
+							tx.executeSql(strSQL,[],function(tx, r) {
+									window.location = "representante.html";
+								},  function(tx, e) {
+									  alert("There has been an error: " + e.message + "\n" + strSQL);
+								});
+						});
+					},  function(tx, e) {
+						  alert("There has been an error: " + e.message + "\n" + strSQL);
+					});
+			});
+		}
+	}
+
+	function btnSave() {
+		var strSql;
+		var codigo = $("#txtCodigo").val();
+		var nome = $("#txtNome").val();
+		var cnpj = $("#txtCnpj").val();
+		var rg = $("#txtRG").val();;
+		var contato = $("#txtContato").val();;
+		var email = $("#txtEmail").val();
+		var telefone =$("#txtTelefone" ).val();
+		var endereco = $("#txtEndereco" ).val();
+		var bairro = $("#txtBairro" ).val();
+		var cep = $("#txtCep" ).val();
+		var cidade = $("#txtCidade" ).val();
+		var uf = $("#txtUF" ).val();
+		switch(type)
+		{
+			case 'I':
+
+				strSQL = "Insert into representante "
+								  + "(codigo"
+								  + ", nome"
+								  + ", cnpj"
+								  + ", rg"
+								  + ", contato"
+								  + ", email"
+								  + ", telefone"
+								  + ", endereco"
+								  + ", bairro"
+								  + ", cep"
+								  + ", cidade"
+								  + ", uf"
+								  + ", flag) "
+								  + " VALUES "
+								 + "('" + codigo + "'"
+								   + ",'" + nome + "'"
+								   + ",'" + cnpj + "'"
+								   + ",'" + rg + "'"
+								   + ",'" + contato + "'"
+								   + ",'" + email + "'"
+								   + ",'" + telefone + "'"
+				  				   + ",'" + endereco + "'"
+				  				   + ",'" + bairro + "'"
+				  				   + ",'" + cep + "'"
+								   + ",'" + cidade + "'"
+								   + ",'" + uf + "'"
+								   + ", 1)";
+
+					break;
+				case 'U':
+
+					strSQL = "UPDATE representante SET "
+									 + "  nome = '" + nome + "'"
+									 + ", cnpj = '" + cnpj + "'"
+									 + ", rg = '" + rg + "'"
+									 + ", contato = '" + contato + "'"
+									 + ", email = '" + email + "'"
+									 + ", telefone = '" + telefone + "'"
+									 + ", endereco = '" + endereco + "'"
+									 + ", bairro = '" + bairro + "'"
+									 + ", cep = '" + cep + "'"
+									 + ", cidade = '" + cidade + "'"
+									 + ", uf = '" + uf + "'"
+									 + ", flag = 2"
+						 + " WHERE codigo = '" + codigo + "'";
+
+					break;
+
+			}
+		console.log(strSQL);
+		db.transaction(function(tx) {
+			tx.executeSql(strSQL,[],function(tx, r) {
+					window.location = "representante.html";
+				},  function(tx, e) {
+					  alert("There has been an error: " + e.message + "\n" + strSQL);
+				});
+		});
+
+	}
+</script>
+</head>
+<body id="jqt" class="supports3d portrait">
+	<div id="divUpdate"></div>
+
+	<div id="representante" style="min-height: 624px;">
+		<div class="toolbar">
+			<h1>Representantes</h1>
+			<a class="button back" href="index.html">Voltar</a>
+			<a class="button flip delete" style="display: none;" id="btnDelete" href="javascript:btnDelete_Click();">Deletar</a>
+		</div>
+		<div id="divSearch">
+			<ul class="rounded">
+				<li><input type="text" placeholder="Nome Representante" id="txtSearch"
+						autocapitalize="off" autocorrect="off" autocomplete="off"  onkeyup="nome_change()" ></li>
+			</ul>
+		</div>
+		<div id="divList">
+		</div>
+		<div id="divCadastro">
+			<form id="form1" method="post" >
+				<input type="hidden" id="type" name="type" value="<?php echo $type;?>">
+				<ul class="rounded">
+					<li><input type="text" placeholder="Código" name="txtCodigo" id="txtCodigo"
+						autocapitalize="off" autocorrect="off" autocomplete="off"></li>
+					<li><input type="text" placeholder="Nome ou razão social"
+						name="txtNome" id="txtNome"  autocapitalize="off" autocorrect="off"
+						autocomplete="off" ></li>
+					<li><input type="text" placeholder="CNPJ/CPF" name="txtCnpj" id="txtCnpj" autocapitalize="off" autocorrect="off"
+						autocomplete="off"  ></li>
+					<li><input type="text" placeholder="RG/Inscrição Estadual"
+						name="txtRG" id="txtRG" autocapitalize="off"
+						autocorrect="off" autocomplete="off"  ></li>
+					<li><input type="text" placeholder="Contato"
+						name="txtContato" id="txtContato" autocapitalize="off" autocorrect="off"
+						autocomplete="off" ></li>
+					<li><input type="text" placeholder="E-mail"
+						name="txtEmail" id="txtEmail" autocapitalize="off" autocorrect="off"
+						autocomplete="off" ></li>
+					<li><input type="text" placeholder="Telefone"
+						name="txtTelefone" id="txtTelefone" autocapitalize="off" autocorrect="off"
+						autocomplete="off" ></li>
+					<li><input type="text" placeholder="Endereço"
+						name="txtEndereco" id="txtEndereco" autocapitalize="off" autocorrect="off"
+						autocomplete="off" ></li>
+					<li><input type="text" placeholder="Bairro"
+						name="txtBairro" id="txtBairro" autocapitalize="off" autocorrect="off"
+						autocomplete="off" ></li>
+					<li><input type="text" placeholder="CEP"
+						name="txtCep" id="txtCep" autocapitalize="off" autocorrect="off"
+						autocomplete="off"></li>
+					<li><input type="text" placeholder="Cidade"
+						name="txtCidade" id="txtCidade" autocapitalize="off" autocorrect="off"
+						autocomplete="off"></li>
+					<li><input type="text" placeholder="UF"
+						name="txtUF" id="txtUF" autocapitalize="off" autocorrect="off"
+						autocomplete="off"></li>
+					<li><input type="button" class="submit" name="action" value="Gravar" onclick="btnSave()">
+					</li>
+				</ul>
+			</form>
+		</div>
+		<div id="divNew" class="toolbar" align=center background=white>
+			<a class="button slideup" href="javascript:btnNew_Click();">Novo Representante</a>
+		</div>
+		<div class="statusbar" align=center border=1 background=white>
+			Rua Sete de Julho Nº 375 - Socorro <br>
+			S&atilde;o Paulo/SP - CEP:04760-070 <br>
+			Tel: (11) 5525-3800 - sac@artimage.com.br
+		</div>
+	</div>
+</body>
+</html>

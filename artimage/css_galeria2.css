@@ -1,0 +1,30 @@
+	div#dorivalmoreira {
+		border: 0px solid #000;
+		//width: 1051px;
+		height: 1000px;
+		min-height: 1000px;
+	}
+	div#wrapper {
+		width: 1050px;
+		height: 1000px;
+		float: left;
+		align: center;
+		//Borda que pode posicionar as imaggens
+		border: 1px solid #000;
+		//overflow:scroll;
+	}
+	ul.gallery {
+		border: 0px solid #000;
+		margin: 20;
+		padding: 0;
+		list-style: none;
+	}
+	ul.gallery li {
+		float: left;
+		width: 375px;
+		margin: 0px 0px 0px 0px;
+		border: 0px #fff;
+	}
+	ul.gallery li:nth-child(2n), ul.gallery li.last {
+		margin-right: 0;
+	}

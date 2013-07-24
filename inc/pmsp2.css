@@ -1,0 +1,67 @@
+﻿/* Background Images*/
+
+.cat1,  .cat2, .cat3, .cat4, .cat5, .cat6, .cat7, .cat8, .cat9 {width:40px;height:40px;background-image:url(../img/categorias/categorias1.png);}
+.cat10, .cat11, .cat12, .cat13, .cat14, .cat15, .cat99         {width:40px;height:40px;background-image:url(../img/categorias/categorias2.png);}
+.icsCapal1c1, .icsCapal1c2, .icsCapal1c3, .icsCapal2c1, .icsCapal2c2, .icsCapal2c3      {height:30px;width:30px;background-image:url(../img/icsCapa.png);}
+.icsTomadorl1c1, .icsTomadorl1c2, .icsTomadorl1c3, .icsTomadorl2c1, .icsTomadorl2c2, .icsTomadorl2c3, .icsTomadorl3c1   {height:29px;width:30px;background-image:url(../img/icsTomador.png);}
+.icsContribuintel1c1, .icsContribuintel1c2, .icsContribuintel1c3, .icsContribuintel2c1, .icsContribuintel2c2, .icsContribuintel2c3  {height:30px;width:30px;background-image:url(../img/icsContribuinte.png);}
+.lab_tests{height:30px;width:30px;background-image:url(../img/lab_tests.png);}
+.ac24horas{height:30px;width:30px;background-image:url(../img/24horas.png);}
+.dieta{height:30px;width:30px;background-image:url(../img/dieta.png);}
+.medicamentos{height:30px;width:30px;background-image:url(../img/medicamentos.png);}
+.receitas{height:30px;width:30px;background-image:url(../img/receitas.png);}
+.market{height:30px;width:30px;background-image:url(../img/market.png);}
+.avaliacao{height:30px;width:30px;background-image:url(../img/avaliacao.png);}
+
+.btSetaUp, .btSetaDown                {height:29px;width:45px;background-color:transparent;border:0px;background-image:url(../img/setaUpDown.png);}
+.switchON, .switchOFF, .switchONDisabled, .switchOFFDisabled       {height:27px;width:94px;background-color:transparent;border:0px;background-image:url(../img/switch.png);margin:0px 8px 8px 0px;}
+.imgIcCancelar, .imgIcSMS, .imgIcNota {height:29px;width:30px;background-image:url(../img/icsNotaView.png);}
+.icsEmailLido, .icsEmailNaoLido {height:13px;width:13px;background-color:transparent;border:0px;background-image:url(../img/icsEmail.png);margin:8px;}
+#divImgPasso1, #divImgPasso2, #divImgPasso3, #divImgPasso4, #divImgPasso5, #divImgPasso6 {margin-bottom:0px;width:280px;height:140px;background-image:url(../img/imgPassos.jpg);}
+.star0,.star1,.star2 {height:12px;width:13px;background-image:url(../img/stars.png);margin:1px;margin-top:5px;float:left;vertical-align:middle;}
+.gift0,.gift1,.gift2 {height:12px;width:13px;background-image:url(../img/gifts.png);margin:1px;margin-top:5px;float:left;vertical-align:middle;}
+.icDetalheMapa, .icDetalheFone, .icDetalheSite, .icDetalheDenuncia {width:58px;height:58px;background-image:url(../img/	);}
+.icDetalheMapaOff, .icDetalheFoneOff, .icDetalheSiteOff, .icDetalheDenunciaOff {width:58px;height:58px;background-image:url(../img/icsDetalhePrestadorOff.png);}
+.imgMarker_GreenP, .imgMarker_YellowP, .imgMarker_RedP {height:16px;width:10px;background-image:url(../img/marker_p.png);float:left;margin-right:5px;}
+
+
+/* Background Positions*/
+.cat1, .cat10, .btSetaUp, .switchOFF, .imgIcNota, .icsCapal1c1, .icsContribuintel1c1, .icsTomadorl1c1, #divImgPasso1,.icsEmailNaoLido,.star0,.gift0, .icDetalheMapa, .icDetalheMapaOff, .imgMarker_GreenP               {background-position:top left;     }
+.cat2, .cat11, .imgIcSMS, .icsCapal1c2, .icsContribuintel1c2, .icsTomadorl1c2, #divImgPasso2, .star1, .gift1, .imgMarker_YellowP                                                                                        {background-position:top center;   }
+.cat3, .cat12, .btSetaDown, .imgIcCancelar, .icsCapal1c3, .icsContribuintel1c3, .icsTomadorl1c3, #divImgPasso3, .switchOFFDisabled,.icsEmailLido, .star2, .gift2, .icDetalheFone, .icDetalheFoneOff, .imgMarker_RedP    {background-position:top right;    }
+.cat4, .cat13, .icsTomadorl2c1                                                                                                                                                                                          {background-position:center left;  }
+.cat5, .cat14, .icsTomadorl2c2                                                                                                                                                                                          {background-position:center center;}
+.cat6, .cat15, .icsTomadorl2c3                                                                                                                                                                                          {background-position:center right; }
+.cat7, .switchON, .icsCapal2c1, .icsContribuintel2c1,#divImgPasso4, .icsTomadorl3c1, .icDetalheSite, .icDetalheSiteOff                                                                                                  {background-position:bottom left;  }
+.cat8, .icsCapal2c2, .icsContribuintel2c2, #divImgPasso5                                                                                                                                                                {background-position:bottom center;}
+.cat9, .cat99, .icsCapal2c3, .icsContribuintel2c3, #divImgPasso6, .switchONDisabled, .icDetalheDenuncia,  .icDetalheDenunciaOff                                                                                         {background-position:bottom right; }
+
+.cat1, .cat2, .cat3, .cat4, .cat5, .cat6, .cat7, .cat8, .cat9, .cat10, .cat11, .cat12, .cat13, .cat14, .cat15, .cat99 {margin:3px;}
+
+/* Hide */
+.divDadosNota .tbCellArrow, #divTxtDiscriminacao .tbCellValidator,#divTxtDiscriminacao .tbCellLabelTit,#divTxtDiscriminacao .tbCellArrow,#divTributacao .tbCellValidator,#divDeducao .tbCellValidator,
+#divDeducao .tbCellArrow,#divAliquota .tbCellArrow, #divRetencao  .tbCellLabelTxt,.divValorTrib  .tbCellArrow,.divValorTrib .tbCellValidator,.divValorNota .tbCellValidator,.divListaCompetencia .tbCellValidator,#divtxbDiscriminacao .tbCellValidator,
+.divDadosNota .tbCellValidator,.divDadosNota .tbCellArrow,.divDadosNota  .tbCellValidator,#divConsultaContribuinte .tbCellValidator,#divConsultaContribuinte .tbCellLabelTit,#divLabelServico .tbCellValidator,
+#divLabelServico .tbCellLabelTit,#divtxbDiscriminacao .tbCellArrow,#divtxbDiscriminacao .tbCellLabelTit,.divEnderecoLinha1 .tbCellValidator,.divEnderecoLinha1Full .tbCellValidator,.divEnderecoLinha2 .tbCellLabelTit,
+.divEnderecoLinha2 .tbCellValidator,#divDadosTomador .tbCellValidator,#divEmissaoTomadorTxt .tbCellArrow, #divNotaCompleta .tbCellLabelTxt, #divSMS .tbCellLabelTxt, #ctl00_cphBase_divCancelamento .tbCellLabelTxt,
+#divEmissaoTomadorTxt .tbCellValidator, #divDadosRPS .tbCellValidator, #divDadosRPSDetalhe .tbCellArrow, .tbCellArrowHide, #divAlteracaoSenha .tbCellLabelTit .spSpace{width:0px;display:none;	visibility:hidden;}
+
+
+/* Borda Arredondada */
+.comBorda, .divRound,  .tbResumoConsulta, .tbResumoConsulta .rowConteudo, .tbNotaTomador,.tbNotaConvencional, .tbNota, .quadroOK, .quadroAlert, .quadroError, .quadro, .mConteudoAba, .tableTransparent,.tbNotaTomadorCancelada, .lblQtdNotas, .lblQtd, #tbDiscriminacaoServ #trDiscServ1 .tbCellLabelTxt .lblListaTexto, #divPlacar, .btnBotao,  .divBanner, .grid  {-webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px;}
+.comBordaTL, .tdTituloNotaPrestador, .tbComp, .trCompTitulo, .tdCompMes,.tdCartaoPrestadorTit,.tbResumoConsulta .rowTitulo, .tbResumoConsulta .rowTitulo2,.tbResumoConsulta .rowTitulo3,.tdIconeNotaTomador,.tbResumoConsulta .rowTitulo2 td , .tdTituloNotaTomador, .btCompetenciaON, .btCompetenciaOFF,.btSMSON,.btSMSOFF, .btNotaPaulistanaON, .btNotaPaulistanaOFF, .gridTopLeft {-webkit-border-top-left-radius: 10px;  -moz-border-radius-topleft: 10px; border-top-left-radius: 10px;}
+.comBordaTR,.tdTituloNotaPrestador, .tdTituloNotaTomador, .tbResumoConsulta .rowTitulo,.tbResumoConsulta .rowTitulo2,.tbResumoConsulta .rowTitulo3,.tbResumoConsulta .rowTitulo2 td,.tdCartaoPrestadorTitDistancia,.tbComp,.trCompTitulo,.tdCompQtd, .btEmissaoON, .btEmissaoOFF,.btEmailON, .btEmailOFF, .btNotaEletronicaON,  .btNotaEletronicaOFF, .gridTopRight  {-webkit-border-top-right-radius: 10px;  -moz-border-radius-topright: 10px; border-top-right-radius: 10px; }
+.comBordaBL,.tdIconeNotaTomador, .tdConteudoNotaPrestador, .tdCartaoPrestador, #tbIdTopo, .tdConteudoNotaTomador, .btCompetenciaON, .btCompetenciaOFF,.btSMSON,.btSMSOFF, .btNotaPaulistanaON, .btNotaPaulistanaOFF{-webkit-border-bottom-left-radius: 10px;  -moz-border-radius-bottomleft: 10px; border-bottom-left-radius: 10px;}
+.comBordaBR,.tdConteudoNotaTomadorCredito, .tdConteudoNotaPrestadorCredito, .tdCartaoPrestador, #tbIdTopo, .btEmissaoON, .btEmissaoOFF,.btEmailON, .btEmailOFF,  .btNotaEletronicaON,  .btNotaEletronicaOFF   {-webkit-border-bottom-right-radius: 10px;-moz-border-radius-bottomright: 10px;border-bottom-right-radius: 10px;}
+.btnBuscar, .btnBotaoPreto, .btnBotaoPretoP {-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px;}
+
+/* SEM Borda Arredondada */
+ .semBorda, .gridTopMid  {-webkit-border-radius: 0px; -moz-border-radius: 0px; border-radius: 0px;}
+ .semBordaTL, .btEmissaoON, .btEmissaoOFF, .btEmailON, .btEmailOFF, .btSetaDown, .btNotaEletronicaON,  .btNotaEletronicaOFF {-webkit-border-top-left-radius: 0px;  -moz-border-radius-topleft: 0px; border-top-left-radius: 0px;}
+ .semBordaTR, .btCompetenciaON, .btCompetenciaOFF,.btSMSON,.btSMSOFF, .btSetaUp, .btNotaPaulistanaON, .btNotaPaulistanaOFF {-webkit-border-top-right-radius: 0px;  -moz-border-radius-topright: 0px; border-top-right-radius: 0px;}
+ .semBordaBL, .btEmissaoON, .btEmissaoOFF, .btEmailON, .btEmailOFF, .btSetaDown, .btNotaEletronicaON,  .btNotaEletronicaOFF {-webkit-border-bottom-left-radius: 0px;  -moz-border-radius-bottomleft: 0px; border-bottom-left-radius: 0px;}
+ .semBordaBR, .btCompetenciaON, .btCompetenciaOFF, .btSMSON, .btSMSOFF, .btSetaUp, .btNotaPaulistanaON, .btNotaPaulistanaOFF {-webkit-border-bottom-right-radius: 0px;-moz-border-radius-bottomright: 0px;border-bottom-right-radius: 0px;}
+ 
+
+
+

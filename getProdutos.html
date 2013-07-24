@@ -1,0 +1,722 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="apple-touch-icon" href="/artimage.htmkilo.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>Artimage</title>
+<link type="text/css" rel="stylesheet" media="screen" href="/css/apple/theme.css">
+<link type="text/css" rel="stylesheet" media="screen" href="/css/apple/box.css">
+<link type="text/css" rel="stylesheet" media="screen" href="/css/apple/box.css">
+<link type="text/css" rel="stylesheet" media="only screen and (min-device-width: 1024px)" href="/css/offer.css" />
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/accounting.js"></script>
+<script type="text/javascript" src="/js/app_offer.js"></script>
+<script type="text/javascript" src="/js/offline.js"></script>
+<link type="text/css" rel="stylesheet" media="screen"  href="pedido.css"></style>
+
+<script type="text/javascript">
+
+	var artista = getUrlVars()["artista"];
+	var familia = getUrlVars()["familia"];
+
+	var curPage = 0;
+
+
+	produto.Colors = new Array();
+	var divWrapper = "";
+	var items = [];
+	var left1 = "0px";
+	var top1 = "0px";
+
+	var lastPedidoId = 0;
+	var lastOrcamentoId = 0;
+
+
+	function RestorePedidoItemObject() {
+		var strSQL = "SELECT  produto, Descricao, Quantidade, Preco	FROM PedidosItemLocal";
+		db.transaction(function(tx) {
+			tx.executeSql(strSQL,[],function(tx, rs) {
+			  	for (var i=0; i < rs.rows.length; i++) {
+			   		var row = rs.rows.item(i);
+			   		produto.codigo = row["produto"];
+			   		produto.descricao = row["Descricao"];
+			   		produto.preco = row["Preco"];
+			   		pedido.Carrinho.push(produto);
+				}
+			  	ShowCarrinho();
+			},  errorQuery);
+		});
+	}
+
+
+	function RestorePedidoOBject() {
+		//alert("Restore Pedido");
+		var sqlSQL = "SELECT PedidoId, OrcamentoId,Cliente,Representante,Transportadora,Pagamento,Observacao,Flag  FROM PedidosLocal ";
+		db.transaction(function(tx) {
+			tx.executeSql(sqlSQL,[],function(tx, rs) {
+			  	for (var i=0; i < rs.rows.length; i++) {
+			   		var row = rs.rows.item(i);
+					pedido.Orcamento = row["OrcamentoId"];
+					pedido.Pedido = row["PedidoId"];
+					pedido.Cliente = row["Cliente"];
+					pedido.Transportadora = row["Transportadora"];
+					pedido.Pagamento = row["Pagamento"];
+					pedido.Consideracoes = row["Observacao"];
+				}
+				RestorePedidoItemObject();
+			},  errorQuery);
+		});
+	}
+
+	function GetLastPedido() {
+		db.transaction(function(tx) {
+			var strSQL = "select Max(OrcamentoId) as orcamento from Pedidos where OrcamentoId > 0";
+			tx.executeSql(strSQL,[],function(tx, rs) {
+			  	if(rs.rows.length > 0) {
+			   		var row = rs.rows.item(0);
+			  		lastOrcamentoId = row["orcamento"];
+			  	}
+			}, errorQuery);
+		});
+		db.transaction(function(tx) {
+			var strSQL = "select Max(PedidoId) as pedido from Pedidos where PedidoId > 0";
+			tx.executeSql(strSQL,[],function(tx, rs) {
+			  	if(rs.rows.length > 0) {
+			   		var row = rs.rows.item(0);
+			   		lastPedidoId = row["pedido"];
+			  	}
+			}, errorQuery);
+		});
+
+	}
+
+	$(document).ready(function() {
+		RestorePedidoOBject();
+		GetLastPedido();
+		$("#pedido").hide();
+		db.transaction(function(tx) {
+			var strSQL = "select pagina, count(*) as total from produto where artista = '" + artista + "' and familia = '" + familia + "' group by pagina order by pagina";
+			console.log(strSQL);
+			tx.executeSql(strSQL,[],function(tx, rs) {
+			  	for (var i=0; i < rs.rows.length; i++) {
+			   		var row = rs.rows.item(i);
+			   		items.push([ row["pagina"], row["total"] ]);
+			  	}
+			  	if(items.length > 0) {
+					ShowImage(items[0]);
+					$("ul.gallery li:nth-child(3n)").addClass("last");
+				}
+				if(items.length <= 1) {
+					$("#next").hide();
+					$("#prev").hide();
+				}
+				ShowCarrinho();
+
+			}, errorQuery);
+		});
+	});
+
+	function CleanProduto(codProduto) {
+		produto = new Object();
+		produto.codigo = codProduto;
+		produto.descricao = "";
+		produto.medida = "";
+		produto.medidap = "";
+		produto.composi1 = "";
+		produto.composi2 = "";
+		produto.composi3 = "";
+		produto.preco = "";
+		produto.quant = 1;
+		produto.Colors = new Array();
+	}
+
+	function GetCSS(linhas) {
+		if(linhas > 9) {
+			linhas = 9;
+		}
+
+		if (linhas == 1)
+		{
+			return '<link type="text/css" rel="stylesheet" media="screen" href="artimage/css_galeria1.css">';
+		}
+		else if	(linhas == 2  || linhas == 4)
+		{
+			return '<link type="text/css" rel="stylesheet" media="screen" href="artimage/css_galeria2.css">';
+		}
+		else
+		{
+			return '<link type="text/css" rel="stylesheet" media="screen" href="artimage/css_galeria9.css">';
+		}
+	}
+
+	function ShowImage(pagina) {
+		var linhas = pagina[1];
+		var sHtml = "";
+		db.transaction(function(tx) {
+			var strSQL = "select id, nome, artista, preco, foto, pagina, composicao from produto where artista = '" + artista + "' and familia = '" + familia + "' and referencia = '' and pagina = '" + pagina[0] + "'";
+
+			tx.executeSql(strSQL,[],function(tx, rs) {
+				linhas = rs.rows.length;
+				if(linhas > 9) {
+					linhas = 9;
+				}
+				sHtml += GetCSS(linhas);
+
+				var i = 0;
+				var nome = new Array();
+				if (linhas == 1)
+				{
+					for (var j=0; j < rs.rows.length; j++) {
+				   		var row = rs.rows.item(j);
+						i++;
+						if (i == 1)
+						{
+							sHtml += '<li class=last><img src="' + row["foto"] + '" width=450 height=450 alt="baubles"></li>';
+							sHtml += '<li>' + row["nome"] + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="/img/info.png" id="' + row["nome"] + '" onClick="lerJson(this);" align=center style="top: 30px; left: 550px; " alt="wreath"></li>';
+						}
+						else
+						{
+							sHtml += '<li><img src="' + row["foto"] + '" width=250 height=250 alt="' + row["nome"] + '"></li>';
+						}
+						nome[i] = row["nome"];
+					}
+				}
+				else if (linhas == 2 || linhas == 4)
+				{
+					for (var j=0; j < rs.rows.length; j++) {
+				   		var row = rs.rows.item(j);
+						i++;
+						if (i == 2 || i ==4)
+						{
+							sHtml += '<li class=last><img src="' + row["foto"] + '" width=300 height=300 alt="baubles"></li>';
+							sHtml += '<li>' + nome[i-1] + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="/img/info.png" id="' + nome[i-1] + '" onClick="lerJson(this);" align=center style="top: 30px; left: 350px; " alt="star"></li>';
+							sHtml += '<li>' + row["nome"] + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="/img/info.png" id="' + row["nome"] + '" onClick="lerJson(this);" align=center style="top: 30px; left: 550px; " alt="wreath"></li>';
+						}
+						else
+						{
+							sHtml += '<li><img src="' + row["foto"] + '" width=300 height=300 alt="' + row["nome"] + '"></li>';
+						}
+						nome[i] = row["nome"];
+					}
+				}
+				else if (linhas == 3 || linhas == 5 || linhas == 6 || linhas == 7 || linhas == 8 || linhas == 9)
+				{
+					for (var j=0; j < rs.rows.length; j++) {
+				   		var row = rs.rows.item(j);
+						i++;
+						if (i == 3 || i ==6 || i == 9)
+						{
+							sHtml += '<li class=last><img src="' + row["foto"] + '" width=250 height=250 alt="baubles"></li>';
+							sHtml += '<li>' + nome[i-2] + '&nbsp;&nbsp;&nbsp;<img id="' + nome[i-2] + '" src="/img/info.png" onClick="lerJson(this);" align=center style="top: 30px; left: 80px; " alt="' + nome[i-2] + '"></li>';
+							sHtml += '<li>' + nome[i-1] + '&nbsp;&nbsp;&nbsp;<img id="' + nome[i-2] + '" src="/img/info.png" onClick="lerJson(this);" align=center style="top: 30px; left: 350px; " alt="star"></li>';
+							sHtml += '<li>' + row["nome"] + '&nbsp;&nbsp;&nbsp;<img id="' + row["nome"] + '"   src="/img/info.png" onClick="lerJson(this);" align=center style="top: 30px; left: 550px; " alt="wreath"></li>';
+						}
+						else if ((i == 5 && linhas == 5) || (i == 8 && linhas == 8))
+						{
+							sHtml += '<li class=last><img src="' + row["foto"] + '" width=250 height=250 alt="baubles"></li>';
+							sHtml += '<li border=0><img src="artimage/img/space.png" width=250 height=250 border=0></li>';
+							sHtml += '<li>' + nome[i-1] + '<img src="/img/info.png" id="' + nome[i-1] + '" align=right onClick="lerJson(this);" align=right style="top: 30px; left: 350px; "alt="star"></li>';
+							sHtml += '<li>' + row["nome"] + '<img src="/img/info.png" id="' + row["nome"] + '" onClick="lerJson(this);" align=right style="top: 30px; left: 550px; " alt="wreath"></li>';
+						}
+						else if (i == 7 && linhas == 7)
+						{
+							sHtml += '<li class=last><img src="' + row["foto"] + '" width=250 height=250 alt="baubles"></li>';
+							sHtml += '<li border=0><img src="artimage/img/space.png" width=250 height=250 border=0></li>';
+							sHtml += '<li border=0><img src="artimage/img/space.png" width=250 height=250 border=0></li>';
+							sHtml += '<li>' + row["nome"] + '<img src="/img/info.png" onClick="lerJson(this);" align=right style="top: 30px; left: 550px; " alt="wreath"></li>';
+						}
+						else
+						{
+							sHtml += '<li><img src="' + row["foto"] + '" width=250 height=250 alt="' + row["nome"] + '"></li>';
+						}
+						nome[i] = row["nome"];
+
+					}
+				}
+				$("#ulGallery").html(sHtml);
+			}, errorQuery);
+		});
+	}
+
+	function lerJson(objeto) {
+		CleanProduto(objeto.id);
+		var codProd = objeto.id;
+
+		left1 = (objeto.x-170) + "px";
+		top1 = (objeto.y-290) + "px";
+
+		var strSQL = "SELECT  * FROM produto WHERE nome = '" + codProd + "'";
+		db.transaction(function(tx) {
+			tx.executeSql(strSQL,[],function(tx, rs) {
+			   	for (var i=0; i < rs.rows.length; i++) {
+			   		var row = rs.rows.item(i);
+					produto.descricao = row['descricao'];
+					produto.medida = row['medida'];
+					produto.medidap = row['medidapol'];
+					produto.preco = row['preco'];
+			  	}
+			  	lerColors(codProd);
+			}, errorQuery);
+		});
+	}
+
+	function GetProductColor(codProd) {
+		var aProd = codProd.split("-");
+		var color = codProd;
+		if(aProd.length == 2){
+			switch(aProd[1])
+			{
+			case "PO":
+				color = "Preto";
+				break;
+			case "BR":
+				color = "Branco";
+				break;
+			}
+		}
+		return color;
+	}
+
+	function lerColors(codProd) {
+		var strSQL = "SELECT nome FROM  produto WHERE referencia = '" + codProd + "'";
+
+		db.transaction(function(tx) {
+			tx.executeSql(strSQL,[],function(tx, rs) {
+
+				if(rs.rows.length > 0) {
+					colors = GetProductColor(codProd);
+					produto.Colors.push(colors);
+					for (var i=0; i < rs.rows.length; i++) {
+				   		var row = rs.rows.item(i);
+						colors = GetProductColor(row['nome']);
+						produto.Colors.push(colors);
+					}
+				}
+				lerComp(codProd);
+			}, errorQuery);
+		});
+	}
+
+	function lerComp(codProd) {
+		var strSQL = "SELECT composicao.linha, composicao.Descricao descricao FROM produto, composicao WHERE produto.composicao = composicao.codigo and nome = '" + codProd + "' order by linha";
+
+		db.transaction(function(tx) {
+			tx.executeSql(strSQL,[],function(tx, rs) {
+				produto.composi1 = "";
+				produto.composi2 = "";
+				produto.composi3 = "";
+
+				for (var i=0; i < rs.rows.length; i++) {
+			   		var row = rs.rows.item(i);
+					switch(i)
+					{
+					case 0:
+						produto.composi1 = row['descricao'];
+						break;
+					case 1:
+						produto.composi2 = row['descricao'];
+						break;
+					case 2:
+						produto.composi3 = row['descricao'];
+						break;
+					}
+				}
+				abrirBox(codProd);
+			}, errorQuery);
+		});
+	}
+
+
+	function abrirBox(codProd) {
+
+		document.getElementById('box').style.top = top1;
+		document.getElementById('box').style.left = left1;
+		html = '<blockquote class="box-produto" align=left>';
+		html += '<font color=#962828><b>' + codProd + '</b></font><font color=#000000>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="artimage/img/bot_fechar.png" onclick="fechaBox();" width=12 height=12 align=right></font><BR><BR>';
+		html += '<font color=#000000>' + produto.descricao + '</font><BR>';
+		html += '<font color=#000000>' + produto.medida + '</font><BR>';
+		if(produto.medidap != "") {
+			html += '<font color=#000000>(' + produto.medidap + ')</font><BR>';
+		}
+		html += '<font color=#000000>' + produto.composi1 + '</font><BR>';
+		html += '<font color=#000000>' + produto.composi2 + '</font><BR>';
+		html += '<font color=#000000>' + produto.composi3+ '</font><BR>';
+		html += '<font color=#000000>Quantidade: <input type="text" id="txtQuant" style="width: 40px;" value="1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>R$ ' + parseFloat(produto.preco).toFixed(2) + '</b></font><BR>';
+		if(produto.Colors.length > 0) {
+			html += '<font color=#000000>Cores: ';
+			for(var i = 0; i < produto.Colors.length; i++) {
+				var color = produto.Colors[i];
+				html += '<INPUT TYPE="checkbox" Name="' + color + '" Value="' + color + '">' + color + '&nbsp;';
+			}
+			html += '</font>';
+		}
+		html += '<font color=#000000>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><img src="artimage/img/comprar.png" width=100 height=20 align=right onclick="btnComprar();">';
+		html += '</blockquote>';
+		$("#box").html(html);
+
+		document.getElementById('box').style.visibility = 'visible';
+	}
+
+	function btnComprar() {
+		console.log(produto);
+		var strSQL = "Insert Into PedidosItemLocal (produto, Descricao, Quantidade, Preco)" +
+					 " VALUES " +
+					 "('" + produto.codigo + "'" +
+					 ",'" + produto.descricao + "'"	+
+					 ",1" +
+					 "," + produto.preco + ")";
+		ExecuteSql(strSQL);
+		pedido.Carrinho.push(produto);
+		ShowCarrinho();
+		fechaBox();
+	}
+
+
+	function ShowProductList() {
+		var html = "";
+		var total = 0;
+		html += "<ul class='rounded'><li>";
+		html += "<table style='width: 100%'>";
+		html += "<tr><td>Codigo</td><td>Descricao</td><td style='text-align: center;'>Quant</td><td style='text-align: right;'>Preco</td>"
+		for(var i = 0; i < pedido.Carrinho.length; i++) {
+			total += parseFloat(pedido.Carrinho[i].preco);
+			html +=  "<tr><td style='font-size: 12px;'>" + pedido.Carrinho[i].codigo
+					+ "<td>" + pedido.Carrinho[i].descricao + "</td>"
+					+ "<td style='text-align: center;'>" + pedido.Carrinho[i].quant + "</td>"
+					+ "</td><td style='text-align: right; font-size: 12px;''>" + parseFloat(pedido.Carrinho[i].preco).toFixed(2) + "</td></tr>";
+		}
+		html +=  "<tr><td style='font-size: 12px; font-weight: bold;' colspan='3'>Total</td><td style='text-align: right; font-size: 12px; font-weight: bold;''>" + total.toFixed(2)+ "</td></tr>";
+		html += "</li></ul>";
+		html += "</table>";
+		$("#divListProduto").html(html);
+	}
+
+	function ShowCarrinho() {
+		var html = "";
+		var total = 0;
+		html += "<table style='width: 100%'>";
+		for(var i = 0; i < pedido.Carrinho.length; i++) {
+			total += parseFloat(pedido.Carrinho[i].preco);
+			html +=  "<tr><td style='font-size: 12px;'>" + pedido.Carrinho[i].codigo + "</td><td style='text-align: right; font-size: 12px;''>" + parseFloat(pedido.Carrinho[i].preco).toFixed(2) + "</td></tr>";
+		}
+		html += "</table>";
+
+		html += "<hr>";
+		html += "<table style='width: 100%'>";
+		html +=  "<tr><td style='font-size: 12px; font-weight: bold;'>Total</td><td style='text-align: right; font-size: 12px; font-weight: bold;''>" + total.toFixed(2)+ "</td></tr>";
+		html += "</table>";
+		html += "<hr>";
+		html += "Pedido => " +  pedido.Pedido + "<br>";
+		html += "Orcamento => " + pedido.Orcamento + "<br>";
+		html += "<b>Cliente</b><br>"
+		html += pedido.Cliente + "<br>";
+		html += "<b>Transportadora</b><br>"
+		html += pedido.Transportadora + "<br>";
+		html += "<b>Pagamento</b><br>"
+		html += pedido.Pagamento + "<br>";
+		html += "<b>Observacoes</b><br>"
+		html += pedido.Consideracoes + "<br>";
+
+		$("#carrinho").html(html);
+	}
+
+	function fechaBox() {
+		document.getElementById('box').style.visibility = 'hidden';
+	}
+
+	function btnOrcamento() {
+		HideProduct();
+		pedido.Orcamento = 0;
+		pedido.Pedido = -1;
+	}
+
+	function HideProduct() {
+		$("#next").hide();
+		$("#prev").hide();
+		$("#cesta").hide();
+
+		$("#orcamento").hide();
+		$("#salvar").hide();
+		$("#pdf").hide();
+		$("#cancel" ).hide();
+		$("#carrinho").hide();
+		$("#wrapper").hide();
+		$("#pedido").show();
+		ShowProductList();
+	}
+
+	function ShowProduct() {
+		$("#next").show();
+		$("#prev").show();
+		$("#cesta").show();
+
+		$("#orcamento").show();
+		$("#salvar").show();
+		$("#pdf").show();
+		$("#cancel" ).show();
+		$("#carrinho").show();
+		$("#wrapper").show();
+		$("#pedido").hide();
+	}
+
+	function btnMore_Click() {
+		UpdatePedidoObject();
+		ShowProduct();
+		ShowCarrinho();
+	}
+
+	function btnPedido() {
+		HideProduct();
+
+		pedido.Orcamento = -1;
+		pedido.Pedido = 0;
+	}
+
+	function btnPDF() {
+		alert("Gerar PDF");
+	}
+
+	function btnCancel() {
+		window.location = "pedidos.html";
+	}
+
+	function backPag() {
+		fechaBox();
+		curPage--;
+		if(curPage < 0) {
+			curPage = items.length -1;
+		}
+		ShowImage(items[curPage]);
+	}
+
+	function nextPag() {
+		fechaBox();
+		curPage++;
+		if(curPage >= items.length) {
+			curPage = 0;
+		}
+		ShowImage(items[curPage]);
+	}
+
+
+	function UpdatePedidoObject() {
+		//alert("Update Pedido Obejct");
+		pedido.Cliente = $("#txtCliente").val();
+		pedido.Transportadora = $("#txtTransportadora").val();
+		pedido.Pagamento = $("#cmbPagamento :selected").val();
+		pedido.Consideracoes =	$("#txtObservacao").val();
+
+		var strSQL = "DELETE FROM PedidosLocal";
+		ExecuteSql(strSQL);
+
+		strSQL = "INSERT INTO PedidosLocal (PedidoId, OrcamentoId,Cliente,Transportadora,Pagamento,Observacao)" +
+					 " VALUES " +
+					 "(" + pedido.Pedido +
+					 "," +  pedido.Orcamento +
+					 ",'" + pedido.Cliente + "'" +
+					 ",'" + pedido.Transportadora + "'" +
+					 ",'" + pedido.Pagamento + "'" +
+					 ",'" + pedido.Consideracoes  + "')";
+
+		ExecuteSql(strSQL);
+	}
+
+	function BackButton_Click() {
+		if ($("#txtCliente")){
+			UpdatePedidoObject();
+		}
+		window.location = "online.html";
+	}
+
+
+
+	function Cliente_change() {
+		UpdatePedidoObject();
+		$("#divListCliente").show();
+		var sqlSQL = "SELECT nome from cliente where nome like '%" + $("#txtCliente").val() + "%' LIMIT 10";
+
+		db.transaction(function(tx) {
+			tx.executeSql(sqlSQL,[],function(tx, rs) {
+				var sHtml = "<ul class='edgetoedge'>";
+			  	for (var i=0; i < rs.rows.length; i++) {
+			   		var row = rs.rows.item(i);
+					sName = row["nome"],
+					sHtml += "<li class='arrow'><a href='javascript:SelectClientes(\"" + sName + "\")'>" + sName + "</a></li>";
+				}
+				sHtml = sHtml + "</ul>";
+				$("#divListCliente").html(sHtml);
+			},  errorQuery);
+		});
+	}
+
+	function SelectClientes(cliente) {
+		UpdatePedidoObject();
+
+		$("#divListCliente").hide();
+		$("#txtCliente").val(cliente);
+		pedido.Cliente = cliente;
+	}
+
+	function SelectTransportadora(transportadora) {
+
+		$("#divListTransportadora").hide();
+		$("#txtTransportadora").val(transportadora);
+		UpdatePedidoObject();
+	}
+
+	function InsertPedidoItem(pedidoId, orcamentoId) {
+		db.transaction(function(tx) {
+			var strSQL = "Select * From PedidosItemLocal";
+			tx.executeSql(strSQL,[],function(tx, rs) {
+				for (var i=0; i < rs.rows.length; i++) {
+			   		var row = rs.rows.item(i);
+			   		strSQL = "INSERT INTO PedidosItem (PedidoId, OrcamentoId, produto, Quantidade, Preco)" +
+					 		 " VALUES " +
+							 "("  + pedidoId +
+							 ","  + orcamentoId +
+							 ",'" + row["produto"] + "'" +
+							 ","  + row["Quantidade"] +
+							 ","  + row["Preco"] + ")";
+			   		ExecuteSql(strSQL);
+			  	}
+		   		ExecuteSql("Delete From PedidosItemLocal");
+			},  errorQuery);
+		});
+	}
+
+	function InsertPedido(pedidoId, orcamentoId, row) {
+		var strSQL = "INSERT INTO Pedidos (PedidoId, OrcamentoId, Cliente, Representante, Transportadora, Pagamento, Observacao, Flag)" +
+					 " VALUES " +
+					 "(" + pedidoId +
+					 "," + orcamentoId +
+					 ",'" + row["Cliente"] + "'" +
+					 ",'" + localStorage.getItem('userEmail') + "'" +
+					 ",'" + row["Transportadora"] + "'" +
+					 ",'" + row["Pagamento"] + "'" +
+					 ",'" + row["Observacao"] + "'" +
+					 ", 1)";
+		ExecuteSql(strSQL);
+		InsertPedidoItem(pedidoId, orcamentoId);
+		ExecuteSql("Delete From PedidosLocal");
+	}
+
+	function btnSave_Click() {
+		UpdatePedidoObject();
+
+		db.transaction(function(tx) {
+			var strSQL = "Select * From PedidosLocal";
+			tx.executeSql(strSQL,[],function(tx, rs) {
+		   		var row = rs.rows.item(0);
+				if(rs.rows.length == 0) {
+					// Error nothing to Update
+				} else {
+					var pedidoId = row["PedidoId"];
+					var orcamentoId = row["OrcamentoId"];
+					if(pedidoId == 0) {
+						pedidoId = lastPedidoId + 1;
+						orcamentoId = -1;
+					} else {
+						pedidoId = -1;
+						orcamentoId = lastOrcamentoId + 1;
+					 	InsertPedido(pedidoId, orcamentoId, row);
+					}
+				}
+				window.location.href = "online.html";
+			},  errorQuery);
+
+		});
+	}
+
+	function Transportadora_change() {
+		UpdatePedidoObject();
+		$("#divListTransportadora").show();
+		var sqlSQL = "SELECT nome from Transportadora where nome like '%" + $("#txtTransportadora").val() + "%' LIMIT 10";
+		db.transaction(function(tx) {
+			tx.executeSql(sqlSQL,[],function(tx, rs) {
+				var sHtml = "<ul class='edgetoedge'>";
+			  	for (var i=0; i < rs.rows.length; i++) {
+			   		var row = rs.rows.item(i);
+					var sName = row["nome"];
+					sHtml += "<li class='arrow'><a href='javascript:SelectTransportadora(\"" + sName + "\")'>" + sName + "</a></li>";
+				}
+				sHtml = sHtml + "</ul>";
+				$("#divListTransportadora").html(sHtml);
+			},  errorQuery);
+		});
+	}
+
+	function cmbPagamento_Change() {
+		UpdatePedidoObject()
+	}
+
+	function txtObservacao_Change() {
+		UpdatePedidoObject();
+	}
+</script>
+
+</head>
+  <body id="ler_produtos">
+	<div id="dorivalmoreira"  style="min-height: 1000px;" >
+		<div class="toolbar">
+        	<h1><?php echo $artista; ?></h1>
+            <a class="button back" href="javascript:BackButton_Click();">Voltar</a>
+		</div>
+		<div id="wrapper">
+			<ul id="ulGallery" class="gallery">
+			</ul>
+			<div id=box style="position: absolute; top: 20px; left: 100px; width=300; visibility: hidden; z-index:3;"></div>
+		</div>
+        <div id="cesta"></div>
+		<div id="orcamento" onclick="btnOrcamento()" ></div>
+		<div id="salvar" onclick="btnPedido()" ></div>
+		<div id="pdf" onclick="btnPDF()"></div>
+		<div id="cancel" onclick="btnCancel()" ></div>
+		<div id="carrinho"></div>
+		<div id="next" onclick="nextPag();" ></div>
+		<div id="prev" onclick="backPag();"></div>
+		<div id="pictureoverlay">
+    		<div class="close"></div>
+	    	<img width="300" />
+		</div>
+		<div id="pedido">
+			<div id="divSearchCliente">
+				<ul class="rounded">
+					<li>
+						<h1>Cliente</h1>
+						<input type="text" placeholder="Nome Cliente" id="txtCliente" autocapitalize="off" autocorrect="off" autocomplete="off"  onkeyup="Cliente_change()" >
+					</li>
+				</ul>
+			</div>
+			<div id="divListCliente"></div>
+			<div id="divSearchTransportadora">
+				<ul class="rounded">
+					<li>
+						<h1>Transportadora</h1>
+						<input type="text" placeholder="Nome Transportadora" id="txtTransportadora" autocapitalize="off" autocorrect="off" autocomplete="off"  onkeyup="Transportadora_change()" >
+					</li>
+				</ul>
+			</div>
+			<div id="divListTransportadora"></div>
+			<div id="divPagamento">
+				<ul class="rounded">
+					<li>
+						<h1>Pagamento</h1>
+						<select id="cmbPagamento"  style="width: 200px;" onchange="cmbPagamento_Change()">
+							<option>A VISTA</option>
+						</select>
+					</li>
+					<li>
+						<h1>Consideracoes</h1>
+						<input type="text" placeholder="Consideracoes Finais" id="txtObservacao" autocapitalize="off" autocorrect="off" autocomplete="off" onchange="txtObservacao_Change()" >
+					</li>
+				</ul>
+			</div>
+			<div id="divListProduto"></div>
+			<input type="button" id="btnSave" onclick="btnSave_Click()" value="Gravar">
+			<input type="button" id="btnSave" onclick="btnMore_Click()" value="Mais Produtos">
+		</div>
+	</div> <!-- fim da div produtos -->
+</body>
+</html>

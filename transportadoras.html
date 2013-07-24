@@ -1,0 +1,255 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="apple-touch-icon" href="/artimage.htmkilo.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>Artimage</title>
+<link type="text/css" rel="stylesheet" media="screen" href="/css/apple/theme.css">
+<link type="text/css" rel="stylesheet" media="screen" href="/css/apple/box.css">
+<link type="text/css" rel="stylesheet" media="screen" href="/css/apple/box.css">
+<link type="text/css" rel="stylesheet" media="only screen and (min-device-width: 1024px)" href="/css/offer.css" />
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/accounting.js"></script>
+<script type="text/javascript" src="/js/app_offer.js"></script>
+<script type="text/javascript" src="/js/offline.js"></script>
+
+<script type="text/javascript">
+	var type = "I";
+	var codigo = "";
+
+	$(document).ready(function() {
+		if(getUrlVars()["type"] != null) {
+			type   = getUrlVars()["type"];
+			codigo = getUrlVars()["codigo"];
+		}
+
+		if(type == "I") {
+			$("#divCadastro").hide();
+		 } else {
+			$("#divNew").hide();
+			$("#divList").hide();
+			$("#divSearch").hide();
+			$("#divCadastro").show();
+		 }
+
+		if(type == "U") {
+			$("#btnDelete").show();
+		}
+		FillForm();
+	});
+
+	function FillForm() {
+		if(type == "U" || type == "D") {
+			var sqlSQL = "select * from Transportadora where nome = '" + codigo + "'";
+
+			db.transaction(function(tx) {
+				tx.executeSql(sqlSQL,[],function(tx, rs) {
+					var sHtml = "<ul class='edgetoedge'>";
+				  	for (var i=0; i < rs.rows.length; i++) {
+				   		var row = rs.rows.item(i);
+						$("#txtNome").val(row["nome"]);
+						$("#txtRazao").val(row["razaosocial"]);
+						$("#txtContato").val(row["contato"]);
+						$("#txtEmail").val(row["email"]);
+						$("#txtTelefone" ).val(row["telefone"]);
+					}
+					sHtml = sHtml + "</ul>";
+					$("#divList").html(sHtml);
+				},  errorQuery);
+			});
+		}
+	}
+
+	function nome_change(){
+		$("#divList").show();
+		var sqlSQL = "SELECT nome from Transportadora where nome like '%" + $("#txtSearch").val() + "%' LIMIT 10";
+
+		db.transaction(function(tx) {
+			tx.executeSql(sqlSQL,[],function(tx, rs) {
+				var sHtml = "<ul class='edgetoedge'>";
+			  	for (var i=0; i < rs.rows.length; i++) {
+			   		var row = rs.rows.item(i);
+					sHtml = sHtml + "<li class='arrow'><a href='transportadoras.html?type=U&codigo=" + row["nome"] + "'>" + row["nome"] + "</a></li>";
+				}
+				sHtml = sHtml + "</ul>";
+				$("#divList").html(sHtml);
+			},  errorQuery);
+		});
+		/*
+		$.getJSON("http://artimage.herokuapp.com/server/getTransportadora.php?nome=" + $("#txtSearch").val(), function(json) {
+			var sHtml = "<ul class='edgetoedge'>";
+			var sName = "";
+			var sCodigo = "";
+			$.each(json, function(item,line) {
+				sName = "";
+				sCodigo = "";
+				$.each(line,function(key, value) {
+					switch(key){
+					case "nome":
+						sName = value;
+						break;
+					case "codigo":
+						sCodigo = value;
+						break;
+					}
+				});
+				sHtml = sHtml + "<li class='arrow'><a href='transportadoras.php?type=U&nome=" + sCodigo + "'>" + sName + "</a></li>";
+			});
+			sHtml = sHtml + "</ul>";
+			$("#divList").html(sHtml);
+		});
+		*/
+	}
+
+	function ClearFields() {
+		$("#txtRazao").val("");
+		$("#txtNome").val("");
+		$("#txtContato").val("");
+		$("#txtEmail").val("");
+		$("#txtTelefone").val("");
+	}
+
+	function btnNew_Click() {
+		$("#divNew").hide();
+		$("#divList").hide();
+		$("#divSearch").hide();
+		$("#divCadastro").show();
+	}
+
+
+
+	function btnDelete_Click() {
+		if(confirm("Exclui Transportadora?")) {
+			var strSQL = "DELETE  from transportadora where nome = '" + codigo + "' ";
+			db.transaction(function(tx) {
+				tx.executeSql(strSQL,[],function(tx, r) {
+						strSQL = "INSERT INTO DeleteLocal (TableName, Codigo) VALUES ('Transportadora','" + codigo + "')";
+						db.transaction(function(tx) {
+							tx.executeSql(strSQL,[],function(tx, r) {
+									window.location = "transportadoras.html";
+								},  function(tx, e) {
+									  alert("There has been an error: " + e.message + "\n" + strSQL);
+								});
+						});
+					},  function(tx, e) {
+						  alert("There has been an error: " + e.message + "\n" + strSQL);
+					});
+			});
+		}
+	}
+
+	function btnSave() {
+		var strSql;
+
+
+		var razaosocial = $("#txtRazao").val();
+		var nome = $("#txtNome").val();
+		var contato = $("#txtContato").val();;
+		var email = $("#txtEmail").val();
+		var telefone =$("#txtTelefone" ).val();
+
+
+		switch(type)
+		{
+			case 'I':
+				strSQL = "Insert into transportadora "
+						  + "(nome"
+						  + ", razaosocial"
+						  + ", contato"
+						  + ", email"
+						  + ", telefone"
+						  + ", flag) "
+						  + " VALUES "
+					 	  + "('" + nome + "'"
+						  + ",'" + razaosocial + "'"
+						  + ",'" + contato + "'"
+						  + ",'" + email + "'"
+						  + ",'" + telefone + "'"
+				    + ", 1)";
+
+					break;
+				case 'U':
+
+					strSQL = "UPDATE transportadora SET "
+					   + " nome = '" + nome + "'"
+					   + ", razaosocial= '" + razaosocial + "'"
+					 + ", contato = '" + contato + "'"
+					 + ", email = '" + email + "'"
+					 + ", telefone = '" + telefone + "'"
+					 + ", flag = 2"
+				  		 + " WHERE nome = '" + codigo + "'";
+
+					break;
+
+			}
+		console.log(strSQL);
+		db.transaction(function(tx) {
+			tx.executeSql(strSQL,[],function(tx, r) {
+					window.location = "transportadoras.html";
+				},  function(tx, e) {
+					  alert("There has been an error: " + e.message + "\n" + strSQL);
+				});
+		});
+
+	}
+
+</script>
+
+</head>
+<body id="jqt" class="supports3d portrait">
+	<div id="divUpdate"></div>
+
+<div id="transportadoras" style="min-height: 624px;">
+		<div class="toolbar">
+			<h1>Transportadores</h1>
+			<a class="button back" href="index.html">Voltar</a>
+			<a class="button flip delete" style="display: none;"  id="btnDelete" href="javascript:btnDelete_Click();">Deletar</a>
+
+		</div>
+		<div id="divSearch">
+			<ul class="rounded">
+				<li><input type="text" placeholder="Nome Transportadora" id="txtSearch"
+						autocapitalize="off" autocorrect="off" autocomplete="off"  onkeyup="nome_change()" ></li>
+			</ul>
+		</div>
+		<div id="divList">
+		</div>
+		<div id="divCadastro">
+
+		<form id="form1" method="post" action="http://artimage.herokuapp.com/server/frmTransportadora.php">
+			<input type="hidden" id="type" name="type">
+			<ul class="rounded">
+				<li><input type="text" placeholder="Razão social" name="txtRazao"
+					id="txtRazao" autocapitalize="off" autocorrect="off" autocomplete="off">
+				</li>
+				<li><input type="text" placeholder="Nome Fantasia" name="txtNome"
+					id="txtNome" autocapitalize="off" autocorrect="off"
+					autocomplete="off"></li>
+				<li><input type="text" placeholder="Contato" name="txtContato"
+					id="txtContato" autocapitalize="off" autocorrect="off"
+					autocomplete="off"></li>
+				<li><input type="text" placeholder="E-mail" name="txtEmail"
+					id="txtEmail" autocapitalize="off" autocorrect="off"
+					autocomplete="off"></li>
+				<li><input type="text" placeholder="Telefone" name="txtTelefone"
+					id="txtTelefone" autocapitalize="off" autocorrect="off"
+					autocomplete="off"></li>
+				<li><input type="button" class="submit" name="action" value="Gravar" onclick="btnSave()">
+				</li>
+			</ul>
+		</form>
+		</div>
+		<div id="divNew" class="toolbar" align=center background=white>
+			<a class="button slideup" href="javascript:btnNew_Click();">Nova Transportadora</a>
+		</div>
+		<div class="statusbar" align=center border=1 background=white>
+			Rua Sete de Julho Nº 375 - Socorro <br>
+			S&atilde;o Paulo/SP - CEP:04760-070 <br>
+			Tel: (11) 5525-3800 - sac@artimage.com.br
+		</div>
+	</div>
+
+</body>
+</html>

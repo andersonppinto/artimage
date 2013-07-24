@@ -1,0 +1,16 @@
+descricao, medida, medidap, 
+
+update produto set descricao = 'Descricao FA0092-PO', medida = '120 x 120 X 2.5', medidapol = '20 x 20 X 1' WHERE nome = 'fa0092-po'
+
+SELECT * FROM `produto` WHERE nome = 'fa0092-po'
+
+SELECT * FROM composicao where codigo = '002'
+
+
+SELECT * FROM produto p, composicao c
+ WHERE p.composicao = c.codigo and nome = 'fa0092-po'
+
+SELECT * FROM composicao where codigo = '002'
+
+SELECT id, nome, artista, preco, foto, pagina, composicao, p.descricao descri_produto, medida, medida as medidap, c.descricao  descri_comp FROM produto p, composicao c
+ WHERE p.composicao = c.codigo and nome = 'fa0092-po'

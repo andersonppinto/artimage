@@ -1,0 +1,349 @@
+﻿html {height:101%; font-family: Helvetica, Trebuchet MS, Arial; }
+body {width:100%; padding:0px 0px 20px 0px; margin:0px; background-color:#E2DCC4;font-size:12px;font-weight:normal;min-width:240px;min-height:500px;}
+h1  {font-weight:bold;	color:#E2DCC4;	margin-left:18px;	margin-top:0px;}
+h3  {font-weight:bold;	color:#FFBA10;	margin-left:18px;	margin-top:0px;}
+h1      {font-size:17px;margin-bottom:10px;}
+h3      {font-size:12px;margin-bottom:5px;}
+p       {font-size:12px;font-weight:normal;	color:#000000;	margin-left:0px;text-align:justify;}
+a       {text-decoration:none;color:#0f355b;font-weight:bold;}
+.flink  {text-decoration:none;color:#0f355b;font-weight:bold;font-size:12px;cursor:hand;}
+
+/* MasterPage */
+#divGeral, #divConteudo, #divRodape, #divTopo {width:100%;}
+#divTopo {height:42px;background-color:#404040;}
+.lblTitPagina {	font-size:12px;	font-weight:bold;	color:#ffffff; text-transform: uppercase;}
+
+/*Identificação*/
+#tbIdTopo {background-color:#FFBA10;height:34px;color:#ffffff;margin:0px auto 2px auto;padding-top:0px;width:98%;-webkit-box-shadow: 2px 2px 2px #FFBA10;vertical-align:middle;line-height:32px;} #tbIdTopo a {color:#ffffff;}
+#tbIdTopo table {margin:auto;color:#ffffff;	text-align:center;	margin-top:0px;	padding-top:0px;vertical-align:middle; }
+#tbIdTopo table tr td {vertical-align:top;	margin-top:0px;	padding-top:0px;line-height:9px;width:100%;text-align:center;vertical-align:middle;height:34px;}
+#tbIdTopo .lblListaTexto {text-align:center; color:#ffffff;	font-size:11px;	font-weight:bold;margin-top:0px;padding-top:0px;height:12px;line-height:12px;}
+#tbIdTopo .lblListaTexto br {height:12px;}
+#tbIdTopo img {	margin-top:2px;	margin-left:2px;}
+#tbListaItens .tbCellLabelTxt, .divMenuOpcoesContrib .tbCellLabelTxt   {text-align:left;}
+#tbListaItens .tbCellArrow      {padding-right:10px;}
+/* Capa alterada */
+#divTexto     {padding:10px 20px 10px 20px;text-align:center;font-size: 15px;}
+.linkBranco:link,   .linkBranco:visited,    .linkBranco:hover    {color:#ffffff;}
+.linkAzulC:link,    .linkAzulC:visited,     .linkAzulC:hover     {color:#a3c6e5;}
+#btnConheca , #btnPrestadores, #btnCriarSenha     {width:100px; padding-top:68px; margin-bottom:10px;color: #000000; background-image: url(../img/icsHome.png); background-repeat: no-repeat; background-position: top left;text-align:center;font-size:11px;line-height:11px;font-weight:bold;}
+#btnPrestadores {background-position: top center;}
+#btnCriarSenha {background-position: top right;}
+.btnBotaoPreto, .btnBotaoPretoP       {background:url(../img/space.png);width:100px;height:30px;background-color:#000000;border:0px;Color:#ffffff;
+                      font-size:13px;font-weight:bold;	line-height:30px;-webkit-box-shadow: 2px 2px 2px #666666;
+                      /* para browsers sem suporte a CSS 3 */
+                    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#333333', endColorstr='#000000'); /* IE */
+                    background: -webkit-gradient(linear, left top, left bottom, from(#333333), to(#000000)); /* webkit browsers */
+                    background: -moz-linear-gradient(top,  #333333,  #000000); /* Firefox 3.6+ */ }
+.btnBotaoPretoP {width:70px;height:22px;font-size:10px; line-height:20px;}                   
+.divBannerEsqueceu {color:#000000;background-image:url(../img/icoEsqueceu.png);background-repeat:no-repeat;background-position:left;height:30px;padding-left:34px;line-height:30px;}
+#divMenuCapa {background-image:url(../img/shelf.png);background-position:bottom;background-repeat:no-repeat;width:300px;}
+
+/* Lista */
+.divRound               {margin:auto;background-color:#ffffff;width:90%;border:1px solid #00437b;}
+.divFull                {margin:auto;background-color:#ffffff;width:100%;border-top:1px solid #00437b;border-bottom:1px solid #00437b;}
+.tbLista                {width:100%;}
+.tbRow, .tbRowUltima, tbRowAlternate1, tbRowAlternate2    {height:40px;}
+
+.tbRow .tbCell, .tbRow .tbCellImage, .tbRow .tbCellLabelTit, .tbRow .tbCellLabelTxt, .tbRow .tbCellArrow, 
+.tbRow .tbCellTextBox, .tbRow .tbCellValidator, .tbRow .tbCellCheck, .tbRow .tbCellLabelTxtLeft {border-bottom:1px solid #00437b;}
+.tbRowAlternate1 .tbCell, .tbRowAlternate1 .tbCellImage, .tbRowAlternate1 .tbCellLabelTit, .tbRowAlternate1 .tbCellLabelTxt, .tbRowAlternate1 .tbCellArrow, 
+.tbRowAlternate1 .tbCellTextBox, .tbRowAlternate1 .tbCellValidator, .tbRowAlternate1 .tbCellCheck, .tbRowAlternate1 .tbCellLabelTxtLeft {border-bottom:1px solid #00437b; background-color:#f5f8fc;}
+.tbRowAlternate2 .tbCell, .tbRowAlternate2 .tbCellImage, .tbRowAlternate2 .tbCellLabelTit, .tbRowAlternate2 .tbCellLabelTxt, .tbRowAlternate2 .tbCellArrow, 
+.tbRowAlternate2 .tbCellTextBox, .tbRowAlternate2 .tbCellValidator, .tbRowAlternate2 .tbCellCheck, .tbRowAlternate2 .tbCellLabelTxtLeft {border-bottom:1px solid #00437b;  background-color:#e1ebf5;}
+.tbCell, .tbCellImage, .tbCellLabelTit, .tbCellLabelTxt, .tbCellLabelTxtLeft, 
+.tbCellArrow, .tbCellValidator, .tbCellTextBox, .tbCellCheck     {padding:0px 2px 0px 4px; text-align:left;vertical-align:middle;}
+
+.tbCellLabelTxt                 {padding:0px 0px 0px 2px;text-align:right;}
+.tbCellLabelTxtLeft             {padding:0px 0px 0px 2px;}
+.tbCellArrow                    {text-align:right;width:10px;padding-right:4px;}
+.tbCellValidator                {padding:0px 0px 0px 0px;text-align:center;width:4px;}
+.tbCellTextBox, .tbCellCheck    {padding:0px 10px 0px 4px;text-align:right;}
+.tbCellCheck                    {width:10px;}
+.tbCellImage img,  .tbCellArrow input, .tbCellArrow image {vertical-align:middle;margin-bottom:2px;}
+.trRowInterna .tbCellImage,.trRowInterna .tbCellLabelTit, .trRowInterna .tbCellArrow {border:0px;}
+
+/* itens Lista */
+.lblListaTitulo, .lblListaTituloOFF {font-size:15px;font-weight:bold;color:#000000;	text-align:center;} .lblListaTituloOFF {color:#cccccc;}
+.lblListaTexto  {font-size:12px;color:#385487;text-align:right;}
+.lblListaTextoLeft  {font-size:12px;color:#385487;text-align:left;}
+.txtInvisible   {border: 0px;text-align:right;color:#00437b;font-size: 12px;background:url(../img/space.png);}
+.btnBotao       {background:url(../img/space.png);width:90%;height:38px;background-color:#FFBA10;border:0px;Color:#ffffff;font-size:16px;font-weight:bold;	line-height:38px;-webkit-box-shadow: 2px 2px 2px #666666;}
+.imgSpace       {z-index:-1;}
+.fdoTransparenteSpace {background:url(../img/nada.png);height:40px;}
+.lblTextoRed   {font-size:12px;color:#cc0000;text-align:right;}
+
+.divMenuOpcoes .tbCellLabelTit {font-size:15px;font-weight:bold;color:#000000;margin-left:5px;text-align:left;width:100%;}
+.seta, .setaId, .mPaginacao a {font-weight:bold;color:#16417a;font-size:20px;font-family:Courier New;padding-right:0px;}
+.setaId {color:#ffffff;line-height:30px;}
+.btVoltar {background-image:url(nada.png/btVoltar.png); background-repeat:no-repeat;background-position:center;background-color:transparent;width:73px;height:26px;border:0px;color:#ffffff;font-size:10px;text-align:center;padding-left:8px;padding-top:auto;padding-bottom:auto;font-weight:bold;font-family:Arial;margin-top:5px;}
+.btVoltarTxt {padding-top:10px;}
+
+/* Legislação e Conheça*/
+#divPassos    {text-align:center;}
+#divPassos h2 {color:#ffcc33;	font-size:14px;	font-weight:bold;}
+#divPassos p  {color:#ffffff;	font-size:12px;}
+#txtPasso1,#txtPasso2, #txtPasso3,#txtPasso4,#txtPasso5,#txtPasso6 {background-color:#404040;width:260px;text-align:left;padding:10px;height:190px;	margin:auto;margin-top:0px;}
+
+.passoVisivel {	display:block;	visibility:visible;}
+.passoOculto  { display:none;	visibility:hidden;}
+
+/*Quadros*/
+.quadroOK ,.quadroAlert ,.quadroError ,.quadro      {margin:auto;margin-top:5px;padding:5px;margin-bottom:5px;width:90%;font-size:12px;}
+.quadroOK    {background-color:#f2fff3;border:2px solid #009933;color: #0F2E44;}
+.quadroAlert {background-color:#fffae5;border:2px solid #ffcc33;color: #0F2E44;}
+.quadroError {background-color:#FFFaFa;border:2px solid #cc0000;color: #cc0000;}
+.quadro      {background-color:#ffffff;border:2px solid #00437b;color: #000000; }
+.error {color: #cc0000;	font-size:12px;}
+
+.lblQtdNotas, .lblQtd {	background-color:#57a0c8;	padding:0px 10px 0px 10px;	color:#ffffff;	font-weight:bold;	border: 1px solid #57a0c8;	margin:2px;}
+.visivel                                {display:block;visibility:visible;}
+.invisivel , .tbCellArrowHide, .nbsp    {display:none;visibility:hidden;}
+.lblListaTexto b {color:#000000;}
+#divCreditoResumo .lblListaTitulo     {font-size:10px;line-height:10px;padding:0px;margin:0px;display:block;vertical-align:top;float:left;}
+#divCreditoResumo .lblListaTitulo span{font-size:15px;line-height:15px;padding:0px;margin:0px;display:block;vertical-align:top;}
+
+/* Consulta de Notas */
+.listaCompetencia  .tbCellImage {padding:0px;width:10px;}
+.listaCompetencia .tbCellLabelTit span {font-size:15px;	font-weight:bold;	color:#000000;	margin-left:5px;text-align:left;}
+.tbResumoConsulta .rowTitulo, .tbResumoConsulta .rowTitulo2, .tbResumoConsulta .rowTitulo3 {background-color: #b0d3e6;font-size: 13px;height: 20px;}
+.tbResumoConsulta .rowTitulo    {height: 25px;}
+.tbResumoConsulta .rowConteudo  {font-size: 13px;height: 25px;}
+.mPaginacao, .mPaginacao > table, .mPaginacao > tr, .mPaginacao > td {border:0px;}
+.mPaginacao td table {text-align:center;margin: auto;margin-top:5px;margin-bottom:0px;border:0px;}
+.mPaginacao td table tr td span, .mPaginacao td table tr td a {margin-left:20px;margin-right:20px;text-align:right;}
+.mPaginacao > a, .mPaginacao td table tr td input {margin: 0px 15px 0px 15px;}
+.tbNotaTomador, .tbNotaConvencional {width:96%;	margin:auto;	margin-bottom:5px;	border: 1px solid #255B78;}
+.tbNota {width:90%;	margin:auto;	margin-bottom:5px;	border: 1px solid #255B78;}
+.tdIconeNotaTomador     {width:60px;background-color:#b0d3e6;text-align:center;padding: 5px 0px 5px 0px;}
+.tdTituloNotaTomador,   .tdTituloNotaPrestador  {background-color:#deeef7;padding:0px 4px 0px 4px;	vertical-align:bottom;	height:25px;}
+.tdConteudoNotaTomador,.tdConteudoNotaPrestador,.tdConteudoNotaTomadorCredito, .tdConteudoNotaPrestadorCredito {background-color:#ffffff;padding:0px 4px 0px 4px;}
+.tdConteudoNotaTomadorCredito, .tdConteudoNotaPrestadorCredito {text-align:right;}
+.tbNotaTomadorCancelada {width:96%;	margin:auto;margin-bottom:5px;	border: 1px solid #660000;}
+.tbNotaTomadorCancelada tr .tdTituloNotaPrestador span, .tbNotaTomadorCancelada tr .tdConteudoNotaPrestador span, .tbNotaTomadorCancelada tr .lblValorCreditoTbTomador,
+.tbNotaTomadorCancelada tr .tdTituloNotaTomador span, .tbNotaTomadorCancelada tr .tdConteudoNotaTomador span,.tbNotaTomadorCancelada tr .lblValorCreditoTbTomador {text-decoration: line-through;} 
+.tbNotaTomadorCancelada tr .tdIconeNotaTomador    {width:60px;background-color:#a43636;text-align:center;padding: 5px 0px 5px 0px;}
+.tbNotaTomadorCancelada tr .tdTituloNotaTomador, .tbNotaTomadorCancelada tr .tdTituloNotaPrestador {background-color:#f7dede;padding:0px 4px 0px 4px;}
+.lblDataNotaTbTomador {font-size: 12px;vertical-align:bottom;padding-top:2px;}
+.lblValorNotaTbTomador {float:right;font-size: 16px;font-weight:bold;}
+.lblPrestadorTbTomador {font-size: 12px;font-weight:bold;}
+.lblCreditoTbTomador {font-size: 12px;font-weight:bold;	color:#999999;}
+.lblValorCreditoTbTomador {font-size: 16px;	font-weight:bold;}
+.tbNotaTomadorCancelada .lblValorNotaTbTomador, .tbNotaTomadorCancelada .lblValorCreditoTbTomador {color: #660000;}
+.bordlessTable {border-width:0px;padding:0px;margin:0px;border-color:#cddeee;}
+.bordlessTable tr, .bordlessTable th, .bordlessTable tr td, .bordlessTable tr td span {border-width:0px;}
+.imgIcoCategoriaNota                {-webkit-box-shadow: 2px 2px 2px #666666;}
+.divListaCompetencia .tbCellLabelTit {margin-left:0px;padding-left:0px;}
+.divListaCompetencia .lblListaTitulo {font-size:14px;font-weight:bold;color:#000000;margin-left:10px;text-align:left;padding-left:0px;}
+
+/* Menus */
+.lblIdentificacao   {color:#ffffff;font-size: 16px;font-weight:bold;margin-top:4px;margin-bottom:0px;line-height:14px;}
+.lblIdNome          {color:#ffffff;font-size: 12px;font-weight:bold;margin-top:0px;line-height:10px;}
+.divMenuOpcoes .tbCellImage table {width:100%;}
+.divMenuOpcoes .trRowInterna {width:100%;}
+.divMenuOpcoes .tbCellLabelTit {font-size:15px;font-weight:bold;color:#000000;margin-left:5px;text-align:left;width:100%;}
+.trRowInterna  .tbCellImage {width:20px;}
+.divMenuOpcoes .tbRowUltima, .divMenuOpcoes .tbCellImage {padding-top:0px;margin-top:0px;}
+
+/* Emissao */
+.divEmissao .tbCellLabelTit {padding:0px;}
+.divEmissao .tbCellLabelTit .lblListaTitulo {margin-left:0px;}
+.tbListaCheck .tbCellLabelTit {width:100%;padding-left:10px;text-align:left;line-height:normal;}
+#divEmissaoDiscriminacao #trDiscServ2 .tbCellValidator, #divNovaDiscriminacao .tbCellValidator {display:none;}
+#divEmissaoDiscriminacao #trDiscServ2 .tbCellLabelTit, #divNovaDiscriminacao .tbCellLabelTit {display:none;}
+#divEmissaoDiscriminacao #trDiscServ2 textarea, #divNovaDiscriminacao textarea {width:100%; padding:0px; text-align:left;}
+#divNovaDiscriminacao textarea {height:65px}
+#divNovaDiscriminacao .tbCellArrow .seta{height:50px;display:block;line-height:36px;}
+#divAliquota .tbCellLabelTit  {width:100px;padding-left:0px;}
+#divAliquota .lblListaTitulo {margin-left:0px;}
+#divAliquota .spSpace {display:none;}
+#divAliquota  .tbCellLabelTxt {padding-right:10px; }
+#divDeducao  .tbCellLabelTxt {padding-right:10px; }
+#divAliquota .txtInvisible {width:150px;}
+#divDeducao .txtInvisible {width:150px;}
+
+/* Nota Print */
+#divDiscriminacaoPreview            {visibility: visible;display: block;}
+#divDiscriminacao                   {visibility: hidden;display: none;}
+#tbNPMDiscriminacaoPreview          {width: 100%;background-color: #ffffff;padding: 0px;margin: 0px;}
+#tbNPMDiscriminacaoPreview tr td,#tbNPMDiscriminacao tr td     {line-height: 12px;text-align:left;}
+#tbNPMTop           {width: 100%;}
+#tdNPMTituloNota    {text-align: left;	line-height: 12px;	color:#385487;}
+.lblNPMTitulo       {font-weight: bold;font-size: 12px;    color:#385487;}
+.lblNPMTextoDestaque    {font-weight: bold;	font-size: 12px;	color:#385487;}
+.lblNPMTextoDestaque2   {font-weight: bold;	font-size: 11px;	color:#385487;}
+.lblNPMTexto            {font-weight: normal;font-size: 12px;	color:#385487;}
+#tdNPMNumNota       {background-color: #d6e7f1;line-height: 10px;width: 95px;padding: 4px 0px 4px 0px;text-align:center;}
+.lblNPMNumNota      {font-family: Verdana;font-weight: bold;font-size: 14px;}
+.lblNPMDataNota     {font-weight: normal;font-size: 9px;}
+#tbNPPrestador      {width: 100%;padding: 0px;margin: 0px;color:#385487;}
+#tdNPMLogotipo      {padding-right: 5px;width: 50px;}
+#tbNPMRazaoSocial   {text-align: left;line-height: 12px;padding-top:5px;}
+#tbNPMPrestadorCNPJ {text-align: left;line-height: 12px;vertical-align: top;}
+#tbNPMPrestadorInscricao {text-align: right;line-height: 12px;vertical-align: top;	padding-right:4px;}
+#tbNPMTomador       {width: 100%;background-color: #ffffff;	padding: 2px 0px 2px 0px;margin: 0px;background-image: url(../img/fdoTomador.jpg);background-repeat: no-repeat;background-position: right top;	margin-top:5px;	margin-bottom:5px;}
+#tdNPMTomadorNome, #tdNPMTomadorCPFCNPJ, #tdNPMTomadorDados  {text-align: left;	line-height: 11px;}
+#tdNPMTomadorInscricao  {text-align: right;	line-height: 11px;}
+.divDadosNota .tbCellLabelTit {	padding:0px 4px 0px 0px;}
+.divDadosNota .tbCellLabelTxt, .divValorTrib .tbCellLabelTxt {	padding:0px 10px 0px 0px;}
+.divDadosNota .tbCellLabelTxt .lblListaTexto {font-size:14px;}
+#tbListaItens .tbCellLabelTxt   {text-align:left;}
+#tbListaItens .tbCellArrow      {padding-right:10px;}
+#divTributacao .tbCellArrow  {vertical-align:middle;margin-bottom:4px;}
+.divValorTrib .tbCellLabelTit, .divValorNota .tbCellLabelTit {padding:0px 4px 0px 0px;}
+.divValorTrib .tbCellLabelTxt .lblListaTexto,.divValorNota .tbCellLabelTxt .lblListaTexto {font-size:14px;}
+.divValorNota .tbCellLabelTxt {padding:0px 0px 0px 0px;}
+#divDadosOutrosValores .tbCellLabelTxt {text-align:left;}
+#divDadosOutrosValores .lblListaTexto {font-size:11px;}
+#divConsultaContribuinte .tbRowUltima .tbCellLabelTxt {text-align:left;	padding-left:10px;}
+.imgIcoCategoriaNota {-webkit-box-shadow: 2px 2px 2px #666666;}
+.divPrint .tbCellLabelTit                 {padding-left:5px;}
+
+/* Quadros */
+.quadroOK ,.quadroAlert ,.quadroError ,.quadro      {margin:auto;margin-top:5px;padding:5px;margin-bottom:5px;width:86%;font-size:12px;}
+.quadroOK    {background-color:#f2fff3;border:2px solid #009933;color: #0F2E44;}
+.quadroAlert {background-color:#fffae5;border:2px solid #ffcc33;color: #0F2E44;}
+.quadroError {background-color:#FFFaFa;border:2px solid #cc0000;color: #cc0000;}
+.quadro      {background-color:#ffffff;border:2px solid #00437b;color: #000000;}
+.error {color: #cc0000;	font-size:12px;}
+.lblListaTexto b {color:#000000;}
+
+/* Legislação e Conheça*/
+#divLegislacao .tbCellLabelTit  {font-size:12px;font-weight:bold;color:#000000;	margin-left:5px;text-align:left;line-height:normal;}
+#divLegislacao .tbCellImage img {vertical-align:middle;margin-bottom:4px;margin-top:4px;}
+#divLegislacao .tbCellArrow input {vertical-align:middle;margin-bottom:4px;margin-top:4px;}
+#divPassos {text-align:center;}
+#divPassos h2 {	color:#ffcc33;	font-size:14px;	font-weight:bold;}
+#divPassos p {	color:#ffffff;	font-size:12px;}
+#txtPasso1,#txtPasso2, #txtPasso3,#txtPasso4,#txtPasso5,#txtPasso6 {	background-color:#404040;	width:260px;	text-align:left;	padding:10px;	height:190px;	margin:auto;	margin-top:0px;}
+.passoVisivel {	display:block;	visibility:visible;}
+.passoOculto {	display:none;	visibility:hidden;}
+
+.trCompTitulo {padding:2px 4px 2px 4px;	border:0px;}
+.tdCompMes {font-size:16px;	font-weight:bold;	color:#000000;	padding:2px 0px 2px 10px; }
+.tdCompQtd {text-align:right;	padding-right:5px;	font-size:11px;	font-weight:bold;	color:#000000;	padding-left:10px;}
+.tdServicosTit {font-size: 11px;	font-weight:normal;	color:#999999;	padding-left:10px;}
+.tdExtraTit {font-size: 11px;	font-weight:normal;	color:#999999;}
+.tdCompArrow {	text-align:right;	padding-right:10px;}
+.tdServico {	padding-left:10px;	font-size: 12px;	font-weight:normal;	color:#000000;}
+.tdExtra {	font-size: 12px;	font-weight:normal;	color:#000000;}
+.lblQtdNotas, .lblQtd {	background-color:#57a0c8;	padding:0px 10px 0px 10px;	color:#ffffff;	font-weight:bold;	border: 1px solid #57a0c8;	margin:2px;}
+.lblQtd {padding:0px 3px 0px 3px;margin:2px;min-width:20px;display:block;text-align:center;}
+
+#tbIdTopo {background-color:#FFBA10;height:34px;color:#ffffff;margin:0px auto 2px auto;padding-top:0px;width:98%;-webkit-box-shadow: 2px 2px 2px #666666;vertical-align:middle;line-height:32px;} #tbIdTopo a {color:#ffffff;}
+#tbIdTopo table {margin:auto;color:#ffffff;	text-align:center;	margin-top:0px;	padding-top:0px;vertical-align:middle; }
+#tbIdTopo table tr td {vertical-align:top;	margin-top:0px;	padding-top:0px;line-height:9px;width:100%;text-align:center;vertical-align:middle;height:34px;}
+#tbIdTopo .lblListaTexto {text-align:center; color:#ffffff;	font-size:11px;	font-weight:bold;margin-top:0px;padding-top:0px;height:12px;line-height:12px;}
+#tbIdTopo .lblListaTexto br {height:12px;}
+#tbIdTopo img {	margin-top:2px;	margin-left:2px;}
+
+.divMenuOpcoesContrib .tbCellLabelTxt {	text-align:left;}
+#divAtividade .lblListaTexto {	font-size:12px;}
+.imgNotaPrint {	width:100%;}
+#divMapa span,#ctl00_cphBase_pnControleMapa span {	float:left;	position:absolute;	top:0;	visibility:hidden;}
+.CanceladaStamp {	margin:auto;	float:left;	z-index:1000;	position:absolute;	text-align:center;	margin-top:10px;	padding-left:10px;}
+#tbDiscriminacaoServ {	width:100%;	height:100px;}
+#tbDiscriminacaoServ #trDiscServ1 {	height:30px;}
+#tbDiscriminacaoServ #trDiscServ2 {	height:70px;}
+#tbDiscriminacaoServ #trDiscServ1 .tbCellLabelTit {	height:20px;	line-height:20px;	padding-top:4px;}
+#tbDiscriminacaoServ #trDiscServ1 .tbCellLabelTxt {	height:20px;	line-height:20px;	padding-top:6px;}
+#tbDiscriminacaoServ #trDiscServ1 .tbCellLabelTxt .lblListaTexto {	background-color:#57a0c8;	padding:0px 8px 0px 8px;	color:#ffffff;	font-weight:bold;	border: 1px solid #57a0c8;	margin:2px 0px 2px 0px;}
+#tbDiscriminacaoServ #trDiscServ2 .tbCellLabelTxt .tbLista .txtInvisible {	width:100%;	height:60px;	text-align:left;	font-size:13px;}
+#tbDiscriminacaoServ #trDiscServ2 .tbCellLabelTxt {	vertical-align:top;	padding-left:0px;}
+#tbDiscriminacaoServ #trDiscServ2 .tbCellLabelTxt .tbLista .tbCellLabelTit .tbCellValidator {}
+#tbDiscriminacaoServ #trDiscServ2 .tbCellLabelTxt .tbLista .tbCellLabelTxt {	width:100%;	height:60px;}
+#tbCellLabelTit  #tbDiscriminacaoServ #trDiscServ2 .tbCellLabelTxt {	text-align:justify;	margin-left:0px;	padding-left:0px;	padding-top:2px;	padding-bottom:5px;	vertical-align:top;}
+#divLabelServico .tbCellLabelTxt {	text-align:left;	font-weight:bold; padding-left: 5px;}
+#divtxbDiscriminacao .tbCellLabelTxt {	width:95%;	padding-right:5px;}
+#divtxbDiscriminacao .tbCellLabelTxt .txtInvisible {border: 0px;	text-align:left;	color:#00437b;	background:url(../img/space.png);	font-size:13px;	height:50px;}
+.divListaCompetencia .imgSpace {height:50px;}
+#divBuscaTomador .txtInvisible {text-align:left;	width:200px;}
+#divResultBuscaTomador b {	color:#385487;}
+.btnBuscar {	width:62px;	height:30px;	color:#ffffff;	background:#000000;font-weight:bold;-webkit-box-shadow: 2px 2px 2px #666666;	border:0px; font-size:11px;}
+.lblTitPagina {	font-size:12px;	font-weight:bold;	color:#ffffff; text-transform: uppercase;}
+#divListaServicos b {	color:#385487;}
+.divEnderecoLinha1 .tbRowUltima {height:24px;}
+.divEnderecoLinha1Full .tbRowUltima {height:40px;}
+.divEnderecoLinha1 .tbRowUltima .tbCellLabelTit, .divEnderecoLinha1Full .tbRowUltima .tbCellLabelTit {	padding:4px 4px 0px 4px;	text-align:left;	vertical-align:middle;	line-height:20px;}
+.divEnderecoLinha1 .tbRowUltima .tbCellLabelTxt, .divEnderecoLinha1Full .tbRowUltima .tbCellLabelTxt  { padding:0px 10px 0px 4px;	text-align:right;	vertical-align:middle;}
+.divEnderecoLinha1 .lblListaTitulo, .divEnderecoLinha1Full .lblListaTitulo {font-size:15px;	font-weight:bold;	color:#000000;	margin-left:5px;	text-align:left;}
+.divEnderecoLinha1 .lblListaTexto, .divEnderecoLinha1Full .lblListaTexto {font-size:12px;	color:#385487;	text-align:right;}
+.divEnderecoLinha2 .tbRowUltima {height:24px;}
+.divEnderecoLinha2 .tbRowUltima .tbCellLabelTxt {padding:0px 10px 4px 12px;	text-align:left;	vertical-align:middle;}
+.divEnderecoLinha2 .lblListaTexto {font-size:12px;color:#385487;text-align:left;}
+#divDadosTomador .tbRow .tbCellLabelTit {padding:4px 4px 0px 4px;text-align:left;vertical-align:middle;}
+#divDadosTomador .tbRow .tbCellLabelTxt {padding:0px 10px 0px 4px;text-align:right;vertical-align:middle;}
+#divEmissaoTomadorTxt  .tbCellLabelTxt {width:60%;padding:0px 10px 0px 4px; }
+#divEmissaoTomadorTxt .txtInvisible, #divDadosTomador .txtInvisible {	width:95%;	font-size:12px;}
+#divDadosRPSDetalhe .tbCellLabelTxt {padding-right:5px;}
+#divDadosRPSDetalhe .spSpace {display:none;} #divDadosRPSDetalhe .lblListaTitulo {margin-left:0px;}
+#divRetencao .tbCellArrow {padding-top:8px;}
+.seta, .setaId, .mPaginacao a {font-weight:bold;color:#16417a;font-size:20px;font-family:Courier New;padding-right:4px;}
+.setaId {color:#ffffff;line-height:30px;}
+.btVoltar {background-image:url(../img/btVoltar.png); background-repeat:no-repeat;background-position:center;background-color:transparent;width:52px;height:32px;border:0px;color:#ffffff;font-size:10px;text-align:center;padding-left:8px;padding-top:auto;padding-bottom:auto;font-weight:bold;font-family:Arial;}
+.btVoltarTxt {padding-top:10px;}
+.divBanner {width:138px;height:58px;border:2px solid #024481;background-color:#ffffff;}
+.icoBannerEsqueceu {width:50px;height:50px;background-image:url(../img/icsLogin.png);background-position: top left;float:left;margin-left:5px;margin-top:4px;}
+.icoBannerCriar    {width:50px;height:50px;background-image:url(../img/icsLogin.png);background-position: top right;float:right;margin-right:5px;margin-top:4px;}
+.txtBannerL,.txtBannerR          {font-weight:bold;font-size:12px;float:right;width:70px;height:35px;text-align:center;padding-top:12px;padding-right:10px;}
+.txtBannerR {float:left;padding-right:0px;padding-left:10px;}
+.icLegislacao {height:30px;width:30px;background-image:url(../img/icLink.png);}
+.icsCapal2c2, .icsCapal2c3 {margin-right:4px;}
+.trRowInterna .tbCellImage,.trRowInterna .tbCellLabelTit, .trRowInterna .tbCellArrow {border:0px;}
+.btCompetenciaON, .btCompetenciaOFF, .btEmissaoON, .btEmissaoOFF,.btSMSON, .btSMSOFF, .btEmailON, .btEmailOFF, .btNotaPaulistanaON, .btNotaPaulistanaOFF, .btNotaEletronicaON, .btNotaEletronicaOFF  {width:50%;height:30px;border:1px solid #626b78; color:#ffffff;font-weight:bold;background-image:url(../img/space.png);}
+.btCompetenciaON, .btEmissaoON, .btSMSON , .btEmailON, .btNotaPaulistanaON, .btNotaEletronicaON  {background-color:#486a99;}
+.btCompetenciaOFF, .btEmissaoOFF, .btSMSOFF,  .btEmailOFF, .btNotaPaulistanaOFF, .btNotaEletronicaOFF  {background-color:#7e94b0;}
+.btNotaPaulistanaON, .btNotaEletronicaON , .btNotaPaulistanaOFF, .btNotaEletronicaOFF {font-size:12px; height:36px;}
+#divDadosPerfilEndereco .tbCellLabelTxt {padding-right:10px;}
+#divDadosPerfilEndereco .tbCellLabelControle .tbCellLabelTit {padding-left:0px;margin-left:0px;}
+#divDadosPerfilEndereco .tbCellLabelControle .tbCellLabelTit  .nbsp {display:none;}
+#divDadosPerfilEndereco .tbCellLabelControle .tbCellLabelTit .lblListaTitulo {margin-left:0px;}
+#divDadosPerfilEndereco .tbCellLabelControle .lblListaTexto  {font-size:14px;}
+#divNotaCompleta .tbCellLabelTit {padding-left:0px;}
+#divNotaCompleta .tbCellLabelTit  .lblListaTitulo {margin-left:0px;}
+.tbListaPrestadores .tbCellLabelTxt {text-align:left;}
+.tbListaPrestadores .tbCellLabelTxt .lblListaTexto {font-size:13px;	font-weight:bold;	color:#000000;	margin-left:0px;	text-align:left;}
+.tbListaPrestadores .fdoTransparenteSpace {height:50px;}
+
+.grid {width:96%;margin:auto;background-color:#ffffff;border:0px;border-width:0px;}
+.grid .error {padding:10px;color:#cc0000}
+.grid tr {height:30px;border:0px;border-width:0px;}
+.grid td, .grid th {border:0px; padding:0px 4px 0px 4px;border-width:0px;}
+.grid th {background-color:#486a99;color:#ffffff;border-width:0px;}
+.gridAlternate {background-color:#eeeeee;border-width:0px;}
+
+ #divAlteracaoSenha .tbCellLabelTit {padding-left:0px;}
+ #divAlteracaoSenha .tbCellLabelTxt {padding-right:10px;}
+ #divAlteracaoSenha .tbCellLabelTxt input {width:100%;}
+
+#divListaDiscriminacoes .tbCellLabelTxt {position:relative; }
+#divListaDiscriminacoes .lblListaTexto {word-wrap:break-word;display:block;position:absolute; top:3px; left:5px; width:90%;height:33px;overflow:hidden;z-index:1;}
+#divListaDiscriminacoes .tbRow   {border-bottom:1px solid #00437b;}
+#divListaDiscriminacoes .tbRow .tbRowUltima,#divListaDiscriminacoes .tbRow .tbRow, #divListaDiscriminacoes  .tbRow .tbCellLabelTxt,  #divListaDiscriminacoes  .tbRow .tbCellArrow {border-bottom:0px;}
+#divNotaPrintDiscriminacao {position:relative; background-color:Green;}
+#divNotaPrintDiscriminacao .lblNPMTexto {word-wrap:break-word;display:block;position:absolute; top:0px; left:0px; width:100%;height:120px;overflow:hidden;}
+#pnErroLocalizacao {width:98%;margin-top:0px;margin-bottom:2px;padding:0px;}
+
+/*Lista Prestadores*/
+#barraTituloLista {height:36px; background-color:#83add3;border-bottom:3px solid #6a6b6d;margin-bottom:2px;}
+.lblNomeCategoria {font-size:11px;font-weight:bold;line-height:11px;}
+.divFiltrosLista {position:absolute;z-index:10;background-color:#6293bf;min-height:100px;width:100%;border-bottom:3px solid #6a6b6d;}
+.tbCartaoPrestador          {width:100%;padding:0px;margin:0px;text-align:left;height:40px;}
+.tbCartaoPrestador tr td    {padding:1px 0px 2px 5px;}
+.tdCartaoPrestadorTit       {padding:0px;margin:0px;}
+.tdCartaoPrestadorTit span  {font-size: 11px; text-transform:uppercase;}
+.tdCartaoPrestador          {padding:0px;}
+.tdCartaoPrestador span     {font-size: 11px;}
+.tdCartaoPrestadorTitDistancia {font-size: 9px;	width: 20%;	vertical-align: middle;	text-align: right;	padding-right: 2px;	}
+.tdCartaoPrestadorTitDistancia span {margin-right:5px;}
+.lpEndereco {font-size: 10px;}
+.divFiltrosListaPrestadores .txtInvisible {width:90%;margin-right:20px;}
+.imgMarker {vertical-align:middle;display:block; float:left; margin-right:5px;}
+.lblNumDenuncias {font-style:italic; vertical-align:middle;padding-left:5px;display:block; font-size:11px;float:left;padding-top:3px;}
+.lblListaPrestadoresTexto {font-size:10px; color:#000000;}
+#divPrestadorDetalheMenu {padding-bottom:10px;padding-top:5px;}
+#divPrestadorDetalheMenu  td {text-align:center;color:#999999;font-size:12px;font-weight:bold;font-family:Verdana,Helvetica, Arial;}
+.txtBtnPrestador {display:block;width:100%;padding-top:5px;}
+.icCategoriaSmall {width:30px;height:30px;}
+a.lblListaPrestadoresTexto {font-weight:normal; color:#83add3; text-decoration:underline;}
+.lblComoChegar {background-color:#CFDEEF; margin-left:0px;padding: 0px 2px 2px 25px; display:block; font-size:10px; background-image: url(../img/car.png); background-position: top left; background-repeat: no-repeat;width:80px; cursor:pointer;margin:5px 0px 5px 0px; float:right; text-wrap: none;}

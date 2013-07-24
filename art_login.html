@@ -1,0 +1,276 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Artimage Login</title>
+<meta name="apple-mobile-web-app-capable" content="no">
+<meta name="viewport"
+	content="width=320,initial-scale=1.0,user-scalable=no,maximum-scale=1.0">
+<meta name="MobileOptimized" content="320">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="x-rim-auto-match" content="none">
+<link id="ctl00_lkIcon" rel="apple-touch-icon"
+	href="img/logo_flex_tracker_health_pq.jpg"
+	style="border-width:0px;margin-top:8px;width:108px;height:25px;">
+<link id="ctl00_lkStartUp" rel="apple-touch-startup-image" href="">
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/offline.js"></script>
+<script language="javascript" type="text/javascript">
+	function RemindPassword() {
+		var user = $("#txtUser").val();
+		if (user == "") {
+			alert("Necessario Informar o usuario");
+		} else {
+			$.get("http://artimage.herokuapp.com/server/ReminderPassword.php?email=" + user, function(data) {alert(data);});
+		}
+	}
+
+
+	function SendLogin() {
+		var txtUser = $("#txtUser").val();
+		var txtPassword =  $("#txtPassword").val();
+		if(IsOffLine() == true) {
+			//alert("App is Offline = " + IsOffLine());
+			$("#divBannerEsqueceu").hide();
+			db.transaction(function(tx) {
+				var strSQL = "Select * from representante where email  = '" + txtUser + "' and password = '" + txtPassword + "';";
+				tx.executeSql(strSQL,[],function(tx, rs) {
+					if(rs.rows.length > 0) {
+						localStorage.setItem('userEmail',$("#txtUser").val());
+						window.location.href = "index.html";
+					} else {
+						alert ("Usuario ou senha invalidos");
+					}
+				}, errorQuery);
+			});
+		} else {
+			//alert("App is OnLIne");
+
+			$.post("http://artimage.herokuapp.com/server/frmLogin.php",
+				{txtUser: txtUser, txtPassword: txtPassword}
+				,function(data) {
+					if(data == "OK") {
+						localStorage.setItem('userEmail',$("#txtUser").val());
+						window.location.href = "index.html";
+					} else {
+						alert(data);
+					}
+			});
+		}
+	}
+</script>
+
+
+<link href="inc/pmsp.css" type="text/css" rel="stylesheet">
+<link href="inc/pmsp2.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+		<div id="divGeral">
+
+
+			<div id="divConteudo">
+
+				<style type="text/css">
+#divLogin .tbCellValidator {
+	width: 0px;
+	visibility: hidden;
+	display: none;
+}
+
+#divLogin {
+	background-color: #dddddd;
+	border: 2px solid #000000;
+	width: 400px;
+}
+
+#divLogin input {
+	margin-right: 10px;
+}
+
+.quadroJavascript {
+	visibility: hidden;
+	display: none;
+}
+
+.divCaptcha .textbox {
+	height: 20px;
+	font-size: 14px;
+	width: 60px;
+	text-align: center;
+}
+</style>
+				<center>
+
+					<img id="ctl00_cphBase_btLogoPrefeitura"
+						src="/img/logo_artimage_login.png"
+						style="border-width: 0px; margin-top: 10px;">
+					<div id="divJavascript" class="invisivel">
+						<div style="padding: 20px;">
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<b>WARNING!<BR>You must enable JavaScript in your
+								browser to use the system.
+							</b>
+						</div>
+					</div>
+					<div id="divCookie" class="invisivel">
+						<div style="padding: 20px;">
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<b>WARNING!<BR>You must enable cookies on your browser
+								to use the system.
+							</b>
+						</div>
+					</div>
+
+					<div style="margin-top: 10px;">
+
+						<div id="divConteudoCapa" style="visibility: visible;">
+							<div class="divRound" id="divLogin">
+
+								<table class="tbLista" cellpadding="0" cellspacing="0">
+									<tbody>
+										<tr id="ctl00_cphBase_ctrlActionCpfCnpj_trRow" class="tbRow">
+											<td class="tbCellValidator">&nbsp;</td>
+											<td class="tbCellLabelTit">
+												<div style="position: relative;">
+													<div
+														style="position: absolute; top: -10px; left: 0px; width: 100%;">
+
+													</div>
+													<span style="font-size: 6px;">&nbsp;</span><span
+														id="ctl00_cphBase_ctrlActionCpfCnpj_lblTitulo"
+														class="lblusuario">usuário</span>
+												</div>
+											</td>
+											<td class="tbCellLabelTxt" width="190"
+												style="padding-right: 0px;"><script
+													type="text/javascript" src="inc/funcoes.js"></script> <input
+												name="txtUser" type="text" placeholder="entre com o usuário"
+												maxlength="50" size="20" id="txtUser" tabindex="1"
+												class="txtInvisible" style="width: 250px;"></td>
+											<td id="ctl00_cphBase_ctrlActionCpfCnpj_tdArrow"
+												class="tbCellArrowHide"></td>
+										</tr>
+
+									</tbody>
+								</table>
+
+
+								<table class="tbLista" cellpadding="0" cellspacing="0">
+									<tbody>
+										<tr id="ctl00_cphBase_ctrlActionSenha_trRow"
+											class="tbRowUltima">
+											<td class="tbCellValidator">&nbsp;</td>
+											<td class="tbCellLabelTit">
+												<div style="position: relative;">
+													<div
+														style="position: absolute; top: 0px; left: 0px; width: 100%">
+
+													</div>
+													<span style="font-size: 6px;" class="spSpace">&nbsp;</span><span
+														id="ctl00_cphBase_ctrlActionSenha_lblTitulo"
+														class="lblusuario">senha</span>
+												</div>
+											</td>
+											<td class="tbCellLabelTxt"><input name="txtPassword"
+												id="txtPassword" type="password" id="tbText"
+												class="txtInvisible" placeholder="entre com sua senha"
+												onfocus="this.select();"></td>
+											<td id="tdArrow" class="tbCellArrowHide">&nbsp;</td>
+										</tr>
+
+									</tbody>
+								</table>
+
+								<span id="ctl00_cphBase_rfvSenha" class="error"
+									style="color: Red; display: none;"></span>
+							</div>
+
+
+
+
+
+							<table border=0 cellpadding="0" cellspacing="0" width="40%"
+								style="margin-top: 3px;">
+								<tbody>
+									<tr>
+										<td width="49%" align="left" nowrap=""><a
+											id="ctl00_cphBase_lbEsqueceu"
+											href="javascript:RemindPassword();">
+												<div class="divBannerEsqueceu">Esqueceu sua senha?</div>
+										</a></td>
+										<td width="40%" align="right"><input type="submit"
+											name="ctl00$cphBase$btLogin" value="Acessar"
+											onclick="javascript:SendLogin();"
+											id="ctl00_cphBase_btLogin" tabindex="4" class="btnAcessar"
+											style="margin-top: 5px; margin-bottom: 5px;"></td>
+									</tr>
+								</tbody>
+							</table>
+							<div style="margin-top: 5px; width: 88%"></div>
+
+						</div>
+					</div>
+
+				</center>
+
+
+				<script language="javascript" type="text/javascript">
+				<!--
+					function javaCookie() {
+						var dvJS = document.getElementById("divJavascript");
+						var dvC = document.getElementById("divConteudoCapa");
+						var dvCookie = document.getElementById("divCookie");
+
+						//Se tem Javascript, ele vai esconder o alerta de javascript.
+						dvJS.className = "invisivel";
+
+						var tmpcookie = new Date();
+						chkcookie = (tmpcookie.getTime() + '');
+						document.cookie = "chkcookie=" + chkcookie + "; path=/";
+						if (document.cookie.indexOf(chkcookie, 0) > 0) {
+							//Verifica o Cookie... se tiver cookie, ele esconde o alerta do cookie e mostra o Conteudo
+							dvCookie.className = "invisivel";
+							dvC.style.visibility = "visible";
+						} else {
+							//Se não tiver cookie, ele mostra o alerta do Cookie.
+							dvCookie.className = "quadroJavascript";
+						}
+
+					}
+					javaCookie();
+				//-->
+				</script>
+				<style type="text/css">
+.quadroJavascript {
+	visibility: visible;
+	display: block;
+	background-color: #FFFaFa;
+	border: 2px solid #cc0000;
+	color: #cc0000;
+	margin-top: 10px;
+	font-size: 12px;
+	position: absolute;
+	z-index: 10px;
+	top: 110px;
+	height: 255px;
+	left: 5%;
+	width: 90%;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+</style>
+
+			</div>
+		</div>
+
+
+</body>
+</html>

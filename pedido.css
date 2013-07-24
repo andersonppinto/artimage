@@ -1,0 +1,133 @@
+
+	body {
+		padding: 0px;
+		margin: 0;
+		font: 0.9em Arial, Helvetica, sans-serif;
+	}
+	div#dorivalmoreira {
+		border: 1px solid #000;
+		width: 1051px;
+		height: 1000px;
+		min-height: 1000px;
+	}
+	div#wrapper {
+		width: 1050px;
+		height: 1000px;
+		float: left;
+		text-align: center;
+		//Borda que pode posicionar as imaggens
+		border: 1px solid #000;
+		overflow:scroll;
+	}
+	ul.gallery {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	ul.gallery li {
+		float: left;
+		width: 250px;
+		margin: 0px 0px 0px 0px;
+		border: 0px #fff;
+	}
+	ul.gallery img {
+		border-radius: 20px;
+	}
+	ul.gallery li:nth-child(3n), ul.gallery li.last {
+		margin-right: 0;
+	}
+
+
+#dorivalmoreira {
+	min-height: 1000px;
+}
+
+#box {
+	position: absolute; 
+	top: 20px; 
+	left: 100px; 
+	width=300; 
+	visibility: hidden; 
+	z-index:3;
+}
+
+#cesta {
+	position: absolute; 
+	top: 55px; 
+	left: 820px; 
+	height: 793px; 
+	width:193; 
+	border: 0px solid; 
+	z-index:1; 
+	background: -moz-linear-gradient(90deg, #00abeb, #f5f5f5, #d7d7d7, #f5f5f5);
+    background: -webkit-gradient(linear, left top, left bottom, from(#d7d7d7), to(#f5f5f5), color-stop(0.5, #f5f5f5), color-stop(0.5, #f5f5f5));
+}
+#orcamento {
+	position: absolute; 
+	top: 70px; 
+	left: 830px; 
+	height: 37; 
+	width:173; 
+	background-image: url(artimage/img/bot_salvar_orca.png); 
+	z-index:2;
+}
+
+#salvar {
+	position: absolute; 
+	top: 120px; 
+	left: 830px; 
+	height: 37; 
+	width:173; 
+	background-image: url(artimage/img/bot_salvar_pedido.png); 
+	z-index:2;
+}
+
+#pdf {
+	position: absolute; 
+	top: 170px; 
+	left: 830px; 
+	height: 37; 
+	width:173; 
+	background-image: url(artimage/img/bot_pdf.png); 
+	z-index:2;
+}
+
+#cancel{
+	position: absolute; 
+	top: 220px; 
+	left: 830px; 
+	height: 37; 
+	width:173; 
+	background-image: url(artimage/img/bot_cancelar.png); 
+	z-index:2;
+}
+
+#carrinho {
+	position: absolute; 
+	background-color: #fff;
+	top: 270px; 
+	left: 830px; 
+	height: 428; 
+	width: 175; 
+	z-index:2;
+}
+
+#next {
+	position: absolute; 
+	top: 310px; 
+	left: 790px; 
+	height: 47; 
+	width:27; 
+	background-image: url(artimage/img/min_next.jpg); 
+	z-index:100;
+}
+
+#prev {
+	position: absolute; 
+	top: 310px; 
+	left: 0px; 
+	height: 47; 
+	width:27; 
+	background-image: url(artimage/img/min_prev.jpg); 
+	z-index:100;
+}

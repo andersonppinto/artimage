@@ -1,0 +1,255 @@
+﻿body {
+    background-color: #000;
+    margin: 0px 0px 0px 0px;
+}
+.logo {
+    width: 288px;
+    height: 144px;
+}
+
+a {
+    font-size: 26px;
+    text-decoration: none;
+    color: #0094ff;
+    font-weight: bold;
+}
+
+
+#divTopo {
+    background-color:  #000000;
+    height:  60px;
+    margin-top:  0px;
+    margin-left: 0px;
+    width: 100%;
+}
+
+#organizer {
+    width: 100%;
+    height: 320px;
+    margin: 0 auto;
+    padding: 47px 0 0 0;
+    background-color: #FFFFFF;
+}
+
+
+#TitleSearch {
+  
+    height:30px;
+    width: 300px;
+   	position: relative;
+	left: 20px;
+	top: -50px;
+    text-align:  left;
+    color:  black;
+    font-weight: bold; 
+    vertical-align: middle;
+}
+
+#example {
+
+}
+
+#divMenu {
+    width: 650px;
+   	position: relative;
+	
+	top: -50px;
+    text-align:  left;
+    vertical-align: middle;
+	list-style-type: none;
+}
+
+#divMenu li {
+   list-style-type: none;
+}
+
+
+.menuImage  {
+    margin-left: 0px;
+    padding: 0;
+    float: left;
+    width: 300px;
+    height: 220px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+#panelbar li {
+         list-style-type: none;
+}
+
+#panelbar li a {
+    text-decoration: none;
+
+
+}
+
+#divBar {
+    position: relative;
+    top:  40px;    
+}
+
+#divBar li {  
+    display: inline;  
+}  
+
+#divBar li a {  
+    font-family: Arial;  
+    font-size:11px;  
+    text-decoration: none;  
+    float:left;  
+    padding: 10px;  
+    background-color: #2175bc;  
+    color: #fff;  
+}  
+#divBar li a:hover {  
+    background-color: #2586d7;  
+    margin-top:-2px;  
+    padding-bottom:12px;  
+}  
+
+
+
+#imgLogo
+{
+   width: 170px;
+top: 1px;
+	position: relative;
+}
+
+#spnTitle
+{
+   color: white ;
+   font-size: 26px;
+   margin-left: 2px;    
+   font-family:'Myriad Pro';
+   position: relative;
+   top: -18px;
+   left: 10px;
+}
+
+#spnMeet
+{
+	position: relative;
+	top: 15px;
+	color: white;
+   	font-size: 20px;    
+   	font-family:'Myriad Pro';
+}
+
+#divBottom {
+    background-color: black;
+ }
+
+#divTab
+{
+    background-color:#000;
+	height: 32px;
+}
+
+#tbMenu{
+	width:100%;
+}
+
+#imgOffer {
+	width: 180px;
+}
+
+#spnPrice {
+	font-size: 16pt;
+	font-weight: bold;
+	color: red;
+	background-color: black;
+}
+
+#divBorder {
+	border-style: solid;
+	border-width: 2px;
+	text-align: center;
+	width: 250px;
+	-moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -khtml-border-radius: 20px;
+    border-radius: 20px;
+}
+
+#divOfferFooter {
+	width: 100%;
+	background-color: black;
+	color: white;
+	-moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -khtml-border-radius: 15px;
+    border-radius: 15px;
+}
+
+.paddle {
+	opacity: 0.6;
+}
+
+a:link {
+	-webkit-tap-highlight-color: white;
+}
+
+
+.paddle {
+	z-index: 13;
+	-moz-transition: opacity 800ms cubic-bezier(0.51, 0.01, 0.37, 0.98);
+	-webkit-transition: opacity 800ms cubic-bezier(0.51, 0.01, 0.37, 0.98);
+	-o-transition: opacity 800ms cubic-bezier(0.51, 0.01, 0.37, 0.98);
+	transition: opacity 800ms cubic-bezier(0.51, 0.01, 0.37, 0.98);
+}
+
+
+.previous-paddle {
+	background: url('images/home/previous.png') no-repeat;
+	height: 70px;
+	width: 70px;
+	left: 30px;
+}
+
+
+.next-paddle {
+	background: url('images/home/next.png') no-repeat;
+	height: 70px;
+	width: 70px;
+	left: 30px;
+}
+
+
+#imgPreviuos {
+	position: relative;
+	width: 35px;
+    //top: -150px;
+	//left: -40px;
+    top: 5px;
+	left: 60px;
+}
+
+#imgNext {
+	position: relative;
+	width: 39px;
+    //top: -150px;
+	//left: 220px;
+    top: 5px;
+	left: 110px;
+}
+
+#imgHome {
+	width: 80px;
+}
+
+.menuBotton {
+	position: relative;
+	top: -15px;
+	width: 90px;
+}
+
+#divBottom li {
+	display: inline;
+	list-style: none;
+}
+
+.imgIcon {
+	width: 30px;
+}
