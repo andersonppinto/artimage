@@ -1,5 +1,5 @@
 <?php
-	$con = mysql_connect("mysql01.penabola.com.br","penabola","bilong1");
+	$con = mysql_connect("mysql01.penabola.com.br","","");
 	if (!$con)
 	{
 		die('Could not connect: ' . mysql_error());
